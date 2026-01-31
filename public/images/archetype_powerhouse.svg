@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="630" viewBox="0 0 420 630">
+  <defs>
+    <linearGradient id="p1" x1="0" x2="1"><stop offset="0" stop-color="#ffe6e6"/><stop offset="1" stop-color="#ffd1d1"/></linearGradient>
+    <linearGradient id="pAccent" x1="0" x2="1"><stop offset="0" stop-color="#9f1239"/><stop offset="1" stop-color="#7f0f2d"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <rect x="10" y="10" rx="12" ry="12" width="400" height="610" fill="url(#p1)" stroke="#ffd4d4"/>
+  <g transform="translate(210,230) scale(1)">
+    <ellipse cx="0" cy="0" rx="72" ry="96" fill="url(#pAccent)"/>
+    <path d="M-60 80 C -30 32 -10 20 0 10 C 10 20 30 32 60 80 L 40 92 C 10 40 -10 40 -40 92 Z" fill="#1a1a1a" opacity="0.9"/>
+    <rect x="-84" y="92" rx="12" width="168" height="24" fill="#c0392b" transform="rotate( -4 0 0)"/>
+  </g>
+  <text x="50%" y="560" font-size="24" text-anchor="middle" fill="#4b0710" font-family="Segoe UI, Roboto, Arial" font-weight="700">Powerhouse</text>
+  <text x="50%" y="590" font-size="12" text-anchor="middle" fill="#7a1a2b" font-family="Segoe UI, Roboto, Arial">Strength & resilience</text>
+</svg>
