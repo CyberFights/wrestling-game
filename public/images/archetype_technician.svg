@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="630" viewBox="0 0 420 630">
+  <defs>
+    <linearGradient id="t1" x1="0" x2="1"><stop offset="0" stop-color="#eafff2"/><stop offset="1" stop-color="#dbfff0"/></linearGradient>
+    <linearGradient id="tAccent" x1="0" x2="1"><stop offset="0" stop-color="#059669"/><stop offset="1" stop-color="#047857"/></linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <rect x="10" y="10" rx="12" ry="12" width="400" height="610" fill="url(#t1)" stroke="#dfffe8"/>
+  <g transform="translate(210,230) scale(1)">
+    <path d="M-30 -60 C -10 -100 10 -100 40 -60 L 46 -48 C 18 -70 -12 -70 -46 -48 Z" fill="url(#tAccent)"/>
+    <path d="M-70 60 C -40 20 -10 10 0 4 C 10 10 40 20 70 60 L 30 88 C 10 60 -10 60 -30 88 Z" fill="#0f172a" opacity="0.9"/>
+    <circle cx="0" cy="-86" r="16" fill="#ffe6c7"/>
+  </g>
+  <text x="50%" y="560" font-size="24" text-anchor="middle" fill="#0b5e40" font-family="Segoe UI, Roboto, Arial" font-weight="700">Technician</text>
+  <text x="50%" y="590" font-size="12" text-anchor="middle" fill="#075e46" font-family="Segoe UI, Roboto, Arial">Precision & grappling</text>
+</svg>
