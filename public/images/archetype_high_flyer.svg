@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="630" viewBox="0 0 420 630" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="g1" x1="0" x2="1">
+      <stop offset="0" stop-color="#d8f5ff"/>
+      <stop offset="1" stop-color="#bfe9ff"/>
+    </linearGradient>
+    <linearGradient id="gAccent" x1="0" x2="1">
+      <stop offset="0" stop-color="#ff8a00"/>
+      <stop offset="1" stop-color="#ff3d00"/>
+    </linearGradient>
+  </defs>
+  <rect width="100%" height="100%" fill="#fff"/>
+  <rect x="10" y="10" rx="12" ry="12" width="400" height="610" fill="url(#g1)" stroke="#cceeff"/>
+  <!-- stylized flying silhouette -->
+  <g transform="translate(210,220) scale(1)">
+    <path d="M-50 40 C -20 -30 20 -30 50 40 L 40 48 C 10 0 -10 0 -40 48 Z" fill="#222" opacity="0.9"/>
+    <ellipse cx="0" cy="30" rx="40" ry="52" fill="url(#gAccent)" opacity="0.95" transform="rotate(-22)"/>
+    <path d="M-10 -30 C 10 -60 40 -60 60 -40" stroke="#fff" stroke-width="6" fill="none" stroke-linecap="round"/>
+    <circle cx="0" cy="-60" r="18" fill="#ffdbb5" stroke="#e6a06a" stroke-width="2"/>
+  </g>
+  <text x="50%" y="560" font-size="24" text-anchor="middle" fill="#024" font-family="Segoe UI, Roboto, Arial" font-weight="700">High-Flyer</text>
+  <text x="50%" y="590" font-size="12" text-anchor="middle" fill="#036" font-family="Segoe UI, Roboto, Arial">Aerial & acrobatic specialist</text>
+</svg>
