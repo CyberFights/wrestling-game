@@ -159,12 +159,30 @@
 
     function uid() { return 'u' + Math.random().toString(36).slice(2,9); }
 
+    // --- Patched init: guarded fetch, logging, and defensive checks ---
     async function init() {
-      presets = await api.getPresets();
+      try {
+        presets = await api.getPresets();
+      } catch (err) {
+        console.error('Failed to fetch presets:', err);
+        const bodyCont = document.getElementById('bodyTypes');
+        bodyCont.innerHTML = '<div class="small">Failed to load presets from server. Check console/network.</div>';
+        return;
+      }
+
+      console.log('presets loaded:', presets);
+
+      // Validate shape
+      if (!presets || !presets.bodyTypes) {
+        console.error('Presets missing required key: bodyTypes', presets);
+        const bodyCont = document.getElementById('bodyTypes');
+        bodyCont.innerHTML = '<div class="small">Presets file is missing the "bodyTypes" section. Check /api/presets or presets.json.</div>';
+        return;
+      }
 
       // Render body types (many variants cover sizes + colors)
       const bodyCont = document.getElementById('bodyTypes');
-      presets.bodyTypes.forEach(bt => {
+      (presets.bodyTypes || []).forEach(bt => {
         const d = document.createElement('div');
         d.className = 'thumb';
         d.dataset.category = 'bodyTypes';
@@ -200,7 +218,7 @@
       const heightSelect = document.getElementById('heightSelect');
       heightSelect.addEventListener('change', () => {
         sel.heightPreset = heightSelect.value;
-        const h = presets.heights.find(h => h.id === sel.heightPreset);
+        const h = (presets.heights || []).find(h => h.id === sel.heightPreset);
         sel.heightScale = h?.offset?.scale ?? 1;
         document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
         document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
@@ -228,7 +246,7 @@
       document.getElementById('overlay').addEventListener('click', closeDialog);
 
       // defaults
-      const defaultH = presets.heights.find(h => h.id === sel.heightPreset);
+      const defaultH = (presets.heights || []).find(h => h.id === sel.heightPreset);
       sel.heightScale = defaultH?.offset?.scale ?? 1;
       document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
       document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
@@ -238,21 +256,11 @@
       loadCharacters();
     }
 
-    function enableCustomizationIfReady() {
-      const ready = !!sel.bodyTypeId;
-      ['attires','masks','accessories'].forEach(id => {
-        const cont = document.getElementById(id);
-        if (cont) cont.style.opacity = ready ? '1' : '0.4';
-        Array.from(cont?.querySelectorAll('.thumb') || []).forEach(t => {
-          t.style.pointerEvents = ready ? 'auto' : 'none';
-        });
-      });
-    }
-
+    // --- Patched renderCustomizationLists: defensive access to presets lists ---
     function renderCustomizationLists() {
       // attires
       const attCont = document.getElementById('attires');
-      presets.attire.forEach(a => {
+      (presets.attire || []).forEach(a => {
         const d = document.createElement('div'); d.className = 'thumb';
         d.dataset.category = 'attire'; d.dataset.id = a.id;
         const img = document.createElement('img'); img.src = a.image; img.alt = a.name;
@@ -270,7 +278,7 @@
 
       // masks
       const maskCont = document.getElementById('masks');
-      presets.masks.forEach(m => {
+      (presets.masks || []).forEach(m => {
         const d = document.createElement('div'); d.className = 'thumb';
         d.dataset.category = 'masks'; d.dataset.id = m.id;
         const img = document.createElement('img'); img.src = m.image; img.alt = m.name;
@@ -288,7 +296,7 @@
 
       // accessories
       const accCont = document.getElementById('accessories');
-      presets.accessories.forEach(acc => {
+      (presets.accessories || []).forEach(acc => {
         const d = document.createElement('div'); d.className = 'thumb';
         d.dataset.category = 'accessories'; d.dataset.id = acc.id;
         const img = document.createElement('img'); img.src = acc.image; img.alt = acc.name;
@@ -319,8 +327,8 @@
       attachSelect.innerHTML = '';
 
       // zones available (from archetypes + body anchorOffsets)
-      const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
+      const arch = presets.archetypes?.find(a => a.id === sel.archetypeId) || {};
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId) || {};
       const zones = new Set(Object.keys((arch.anchors || {})).concat(Object.keys((body.anchorOffsets || {}))).concat(['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder']));
       Array.from(zones).forEach(z => { const opt = document.createElement('option'); opt.value = z; opt.textContent = z; attachSelect.appendChild(opt); });
 
@@ -378,8 +386,8 @@
 
     // compute anchor with body type anchorOffsets
     function computeAnchorPosition(attachPoint) {
-      const arche = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
+      const arche = presets.archetypes?.find(a => a.id === sel.archetypeId) || {};
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId) || {};
       let base = null;
       if (arche.anchors && arche.anchors[attachPoint]) base = { x: arche.anchors[attachPoint].x, y: arche.anchors[attachPoint].y };
       if (!base && body.anchors && body.anchors[attachPoint]) base = { x: body.anchors[attachPoint].x, y: body.anchors[attachPoint].y };
@@ -393,7 +401,7 @@
 
     // apply proportional transform: width uses body.widthMultiplier, height uses sel.heightScale
     function applyProportionalTransform(el, leftPercent, topPercent, itemOffset, instance) {
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
       const bodyWidth = body.widthMultiplier || 1.0;
       const hScale = sel.heightScale || 1.0;
       const scaleBase = itemOffset?.scale || 1;
@@ -425,7 +433,7 @@
       ['layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
 
       // body
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId);
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
       if (body) {
         const layerBody = document.getElementById('layerBody');
         const left = body.offset?.x ?? 50; const top = body.offset?.y ?? 50;
@@ -434,7 +442,7 @@
       }
 
       // archetype (optional)
-      const arche = presets.archetypes.find(a => a.id === sel.archetypeId);
+      const arche = presets.archetypes?.find(a => a.id === sel.archetypeId);
       if (arche) {
         const layerArch = document.getElementById('layerArchetype');
         const left = arche.offset?.x ?? 50; const top = arche.offset?.y ?? 50;
@@ -443,7 +451,7 @@
       }
 
       // attire (position at torso anchor)
-      const att = presets.attire.find(a => a.id === sel.attireId);
+      const att = presets.attire?.find(a => a.id === sel.attireId);
       if (att) {
         const torso = computeAnchorPosition('torso');
         const layerAtt = document.getElementById('layerAttire');
@@ -452,7 +460,7 @@
       }
 
       // mask (position at head anchor)
-      const mask = presets.masks.find(m => m.id === sel.maskId);
+      const mask = presets.masks?.find(m => m.id === sel.maskId);
       if (mask) {
         const head = computeAnchorPosition('head');
         const layerMask = document.getElementById('layerMask');
@@ -463,7 +471,7 @@
       // accessories
       const accLayer = document.getElementById('layerAccessories');
       sel.accessories.forEach(inst => {
-        const item = presets.accessories.find(a => a.id === inst.id);
+        const item = presets.accessories?.find(a => a.id === inst.id);
         if (!item) return;
         const attach = inst.attachTo || item.defaultAttachTo || 'torso';
         const anchor = computeAnchorPosition(attach);
@@ -504,7 +512,7 @@
             const x = ((ev.clientX - rect.left) / rect.width) * 100;
             const y = ((ev.clientY - rect.top) / rect.height) * 100;
             const nearest = findNearestAnchor(x, y);
-            const item = presets.accessories.find(a => a.id === data.id);
+            const item = presets.accessories?.find(a => a.id === data.id);
             if (!item) return;
             const instance = {
               uid: uid(),
@@ -530,8 +538,8 @@
     }
 
     function findNearestAnchor(x, y) {
-      const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
+      const arch = presets.archetypes?.find(a => a.id === sel.archetypeId) || {};
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId) || {};
       const candidates = new Set(Object.keys(arch.anchors || {}).concat(Object.keys(body.anchorOffsets || {})).concat(['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder']));
       let best = null; let bestD = Infinity;
       Array.from(candidates).forEach(z => { const a = computeAnchorPosition(z); const dx = a.x - x; const dy = a.y - y; const d = Math.hypot(dx,dy); if (d < bestD) { best = z; bestD = d; } });
@@ -553,23 +561,23 @@
       function enqueue(item, leftPercent, topPercent, instance) {
         if (!item || !item.image) return;
         const off = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
-        const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
+        const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
         const sx = (off.scale || 1) * (body.widthMultiplier || 1);
         const sy = (off.scale || 1) * sel.heightScale;
         const px = { x: leftPercent / 100 * stageW, y: topPercent / 100 * stageH };
         drawList.push({ item, px, sx, sy, rotation: (instance?.rotation ?? off.rotation) || 0, mirror: instance?.mirror || false, z: off.zIndex || 10 });
       }
 
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId);
+      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
       if (body) enqueue(body, body.offset?.x ?? 50, body.offset?.y ?? 50, null);
-      const arche = presets.archetypes.find(a => a.id === sel.archetypeId);
+      const arche = presets.archetypes?.find(a => a.id === sel.archetypeId);
       if (arche) enqueue(arche, arche.offset?.x ?? 50, arche.offset?.y ?? 50, null);
-      const att = presets.attire.find(a => a.id === sel.attireId);
+      const att = presets.attire?.find(a => a.id === sel.attireId);
       if (att) { const torso = computeAnchorPosition('torso'); enqueue(att, torso.x, torso.y, null); }
-      const mask = presets.masks.find(m => m.id === sel.maskId);
+      const mask = presets.masks?.find(m => m.id === sel.maskId);
       if (mask) { const head = computeAnchorPosition('head'); enqueue(mask, head.x, head.y, null); }
       for (const inst of sel.accessories) {
-        const it = presets.accessories.find(a => a.id === inst.id);
+        const it = presets.accessories?.find(a => a.id === inst.id);
         if (!it) continue;
         const attach = inst.attachTo || it.defaultAttachTo || 'torso';
         const anchor = computeAnchorPosition(attach);
@@ -653,13 +661,13 @@
 
     function randomizeSelection() {
       const rand = arr => arr[Math.floor(Math.random() * arr.length)].id;
-      sel.bodyTypeId = rand(presets.bodyTypes);
-      sel.heightPreset = rand(presets.heights);
-      const h = presets.heights.find(h => h.id === sel.heightPreset);
+      sel.bodyTypeId = rand(presets.bodyTypes || []);
+      sel.heightPreset = rand(presets.heights || []);
+      const h = (presets.heights || []).find(h => h.id === sel.heightPreset);
       sel.heightScale = h?.offset?.scale ?? 1;
-      sel.archetypeId = rand(presets.archetypes);
-      sel.attireId = rand(presets.attire);
-      sel.maskId = rand(presets.masks);
+      sel.archetypeId = rand(presets.archetypes || []);
+      sel.attireId = rand(presets.attire || []);
+      sel.maskId = rand(presets.masks || []);
       sel.accessories = [];
       renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
       document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
@@ -674,8 +682,10 @@
       renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
     }
 
+    // --- Patched loadCharacters: defensive early return if API missing ---
     async function loadCharacters() {
       const out = document.getElementById('charactersList'); out.innerHTML = '';
+      if (!api || !api.listCharacters) { out.innerHTML = '<div class="small">Character API not available</div>'; return; }
       try {
         const chars = await api.listCharacters();
         if (!chars.length) { out.innerHTML = '<div class="small">No saved wrestlers</div>'; return; }
@@ -688,12 +698,12 @@
             sel.attireId = c.selection?.attireId || sel.attireId;
             sel.maskId = c.selection?.maskId || sel.maskId;
             sel.heightPreset = c.selection?.heightId || sel.heightPreset;
-            const h = presets.heights.find(h => h.id === sel.heightPreset);
+            const h = (presets.heights || []).find(h => h.id === sel.heightPreset);
             sel.heightScale = h?.offset?.scale ?? 1;
             sel.bodyTypeId = c.selection?.bodyTypeId || sel.bodyTypeId;
             // load accessories as bare instances (user may edit)
             sel.accessories = (c.selection?.accessoryIds || []).map(id => {
-              const item = presets.accessories.find(a => a.id === id);
+              const item = presets.accessories?.find(a => a.id === id);
               return { uid: uid(), id, attachTo: item?.defaultAttachTo || 'torso', mirror: false, rotation: 0, offset: { x: item?.offset?.x || 0, y: item?.offset?.y || 0, scale: item?.offset?.scale || 1 } };
             });
             renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
@@ -722,7 +732,8 @@
 
     // initial boot
     init().then(() => {
-      initThumbnailDrags();
+      // small delay to ensure thumbs exist, then wire dragstart for dynamically-created thumbs
+      setTimeout(initThumbnailDrags, 200);
     }).catch(e => { console.error(e); alert('Init failed: ' + e.message); });
   </script>
 </body>
