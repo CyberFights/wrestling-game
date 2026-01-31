@@ -3,7 +3,7 @@
     {
       "id": "high_flyer",
       "name": "High-Flyer",
-      "description": "Aerial specialist — excels at agility, acrobatics and crowd-pleasing moves.",
+      "description": "Aerial specialist — excels at agility and acrobatics.",
       "image": "/images/archetype_high_flyer.svg",
       "offset": { "x": 50, "y": 42, "scale": 1.0, "rotation": 0, "zIndex": 10 },
       "anchors": {
@@ -20,7 +20,7 @@
     {
       "id": "powerhouse",
       "name": "Powerhouse",
-      "description": "Brute force competitor — high strength and resilience, favors powerful slams.",
+      "description": "Heavily built competitor — high strength and resilience.",
       "image": "/images/archetype_powerhouse.svg",
       "offset": { "x": 50, "y": 44, "scale": 1.05, "rotation": 0, "zIndex": 10 },
       "anchors": {
@@ -56,7 +56,7 @@
     {
       "id": "classic_trunks",
       "name": "Classic Trunks",
-      "description": "Traditional ring trunks — lightweight, lets you move freely.",
+      "description": "Traditional ring trunks — lightweight.",
       "image": "/images/attire_classic_trunks.svg",
       "offset": { "x": 50, "y": 64, "scale": 1.0, "rotation": 0, "zIndex": 30 },
       "damage": 2,
@@ -76,7 +76,7 @@
     {
       "id": "no_mask",
       "name": "No Mask",
-      "description": "No mask — natural face, neutral protection.",
+      "description": "No mask — neutral.",
       "image": "/images/mask_no_mask.svg",
       "offset": { "x": 50, "y": 28, "scale": 0.8, "rotation": 0, "zIndex": 50 },
       "armor": 0,
@@ -85,7 +85,7 @@
     {
       "id": "luchador_mask",
       "name": "Luchador Mask (Ornate)",
-      "description": "Ornate luchador mask with symbolic design — high charisma and ring presence.",
+      "description": "Ornate luchador mask with symbolic design.",
       "image": "/images/mask_luchador_mask.svg",
       "offset": { "x": 50, "y": 28, "scale": 0.9, "rotation": 0, "zIndex": 55 },
       "armor": 3,
@@ -96,7 +96,7 @@
     {
       "id": "long_hair",
       "name": "Long Hair",
-      "description": "Long flowing hair, great for drama and visual flair.",
+      "description": "Long flowing hair for drama and flair.",
       "image": "/images/accessory_long_hair.svg",
       "defaultAttachTo": "head",
       "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
@@ -105,7 +105,7 @@
     {
       "id": "entrance_cape",
       "name": "Entrance Cape",
-      "description": "Dramatic cape for the entrance — big charisma boost while on the ramp.",
+      "description": "Dramatic cape for the entrance.",
       "image": "/images/accessory_entrance_cape.svg",
       "defaultAttachTo": "torso",
       "offset": { "x": 0, "y": 8, "scale": 1.2, "rotation": 0, "zIndex": 25 },
@@ -135,8 +135,8 @@
       "id": "short",
       "name": "Short",
       "image": "/images/height_short.svg",
-      "offset": { "x": 50, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 0 },
-      "statBonuses": { "agility": 1, "technique": 1 }
+      "offset": { "x": 50, "y": 0, "scale": 0.92, "rotation": 0, "zIndex": 0 },
+      "statBonuses": { "agility": 1 }
     },
     {
       "id": "average",
@@ -149,64 +149,178 @@
       "id": "tall",
       "name": "Tall",
       "image": "/images/height_tall.svg",
-      "offset": { "x": 50, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 0 },
-      "statBonuses": { "strength": 1, "charisma": 1, "agility": -1 }
+      "offset": { "x": 50, "y": 0, "scale": 1.08, "rotation": 0, "zIndex": 0 },
+      "statBonuses": { "strength": 1 }
     }
   ],
   "bodyTypes": [
     {
-      "id": "lean",
-      "name": "Lean",
-      "image": "/images/body_lean.svg",
-      "offset": { "x": 50, "y": 50, "scale": 1.0, "rotation": 0, "zIndex": 5 },
-      "anchorOffsets": {
-        "head": { "x": 0, "y": -2 },
-        "torso": { "x": 0, "y": 0 },
-        "legs": { "x": 0, "y": 2 },
-        "left-leg": { "x": -2, "y": 2 },
-        "right-leg": { "x": 2, "y": 2 },
-        "left-shoulder": { "x": -3, "y": -1 },
-        "right-shoulder": { "x": 3, "y": -1 }
-      },
-      "statBonuses": { "agility": 2, "technique": 1 }
-    },
-    {
-      "id": "muscular",
-      "name": "Muscular",
-      "image": "/images/body_muscular.svg",
+      "id": "stocky_fair",
+      "name": "Stocky — Fair",
+      "description": "Stocky / broad build, fair skin (Image 1 - fair)",
+      "image": "/images/bbasian.png",
       "offset": { "x": 50, "y": 50, "scale": 1.02, "rotation": 0, "zIndex": 5 },
-      "anchorOffsets": {
-        "head": { "x": 0, "y": 0 },
-        "torso": { "x": 0, "y": 1 },
-        "legs": { "x": 0, "y": 3 },
-        "left-leg": { "x": -1, "y": 3 },
-        "right-leg": { "x": 1, "y": 3 },
-        "left-shoulder": { "x": -2, "y": 0 },
-        "right-shoulder": { "x": 2, "y": 0 }
-      },
-      "statBonuses": { "strength": 2, "vitality": 1 }
-    },
-    {
-      "id": "bulky",
-      "name": "Bulky",
-      "image": "/images/body_bulky.svg",
-      "offset": { "x": 50, "y": 50, "scale": 1.06, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": 2 },
         "torso": { "x": 0, "y": 3 },
-        "legs": { "x": 0, "y": 6 },
-        "left-leg": { "x": -1, "y": 6 },
-        "right-leg": { "x": 1, "y": 6 },
-        "left-shoulder": { "x": -2, "y": 1 },
-        "right-shoulder": { "x": 2, "y": 1 }
+        "legs": { "x": 0, "y": 6 }
       },
-      "statBonuses": { "strength": 3, "vitality": 2, "agility": -2 }
+      "widthMultiplier": 1.12,
+      "statBonuses": { "strength": 3, "vitality": 2, "agility": -1 }
+    },
+    {
+      "id": "stocky_tan",
+      "name": "Stocky — Tan",
+      "description": "Stocky / broad build, tan skin (Image 1 - tan)",
+      "image": "/images/bbwhite.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.02, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 2 },
+        "torso": { "x": 0, "y": 3 },
+        "legs": { "x": 0, "y": 6 }
+      },
+      "widthMultiplier": 1.12,
+      "statBonuses": { "strength": 3, "vitality": 2, "agility": -1 }
+    },
+    {
+      "id": "stocky_brown",
+      "name": "Stocky — Brown",
+      "description": "Stocky / broad build, brown skin (Image 1 - brown)",
+      "image": "/images/bbtan.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.02, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 2 },
+        "torso": { "x": 0, "y": 3 },
+        "legs": { "x": 0, "y": 6 }
+      },
+      "widthMultiplier": 1.12,
+      "statBonuses": { "strength": 3, "vitality": 2, "agility": -1 }
+    },
+    {
+      "id": "stocky_dark",
+      "name": "Stocky — Dark",
+      "description": "Stocky / broad build, dark skin (Image 1 - dark)",
+      "image": "/images/bbblack.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.02, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 2 },
+        "torso": { "x": 0, "y": 3 },
+        "legs": { "x": 0, "y": 6 }
+      },
+      "widthMultiplier": 1.12,
+      "statBonuses": { "strength": 3, "vitality": 2, "agility": -1 }
+    },
+    {
+      "id": "muscular_fair",
+      "name": "Muscular — Fair",
+      "description": "Muscular build, fair skin (Image 2 - fair)",
+      "image": "/images/muscularasian.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 1 },
+        "torso": { "x": 0, "y": 1 },
+        "legs": { "x": 0, "y": 3 }
+      },
+      "widthMultiplier": 1.08,
+      "statBonuses": { "strength": 2, "vitality": 1 }
+    },
+    {
+      "id": "muscular_tan",
+      "name": "Muscular — Tan",
+      "description": "Muscular build, tan skin (Image 2 - tan)",
+      "image": "/images/muscularwhite.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 1 },
+        "torso": { "x": 0, "y": 1 },
+        "legs": { "x": 0, "y": 3 }
+      },
+      "widthMultiplier": 1.08,
+      "statBonuses": { "strength": 2, "vitality": 1 }
+    },
+    {
+      "id": "muscular_brown",
+      "name": "Muscular — Brown",
+      "description": "Muscular build, brown skin (Image 2 - brown)",
+      "image": "/images/musculartan.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 1 },
+        "torso": { "x": 0, "y": 1 },
+        "legs": { "x": 0, "y": 3 }
+      },
+      "widthMultiplier": 1.08,
+      "statBonuses": { "strength": 2, "vitality": 1 }
+    },
+    {
+      "id": "muscular_dark",
+      "name": "Muscular — Dark",
+      "description": "Muscular build, dark skin (Image 2 - dark)",
+      "image": "/images/muscularblack.png",
+      "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 1 },
+        "torso": { "x": 0, "y": 1 },
+        "legs": { "x": 0, "y": 3 }
+      },
+      "widthMultiplier": 1.08,
+      "statBonuses": { "strength": 2, "vitality": 1 }
+    },
+    {
+      "id": "slim_fair",
+      "name": "Slim — Fair",
+      "description": "Slim / lean build, fair skin (Image 4 - fair)",
+      "image": "/images/body_slim_fair.png",
+      "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": -2 },
+        "torso": { "x": 0, "y": 0 },
+        "legs": { "x": 0, "y": 2 }
+      },
+      "widthMultiplier": 0.94,
+      "statBonuses": { "agility": 2, "technique": 1 }
+    },
+    {
+      "id": "slim_tan",
+      "name": "Slim — Tan",
+      "description": "Slim / lean build, tan skin (Image 4 - tan)",
+      "image": "/images/body_slim_tan.png",
+      "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": -2 },
+        "torso": { "x": 0, "y": 0 },
+        "legs": { "x": 0, "y": 2 }
+      },
+      "widthMultiplier": 0.94,
+      "statBonuses": { "agility": 2, "technique": 1 }
+    },
+    {
+      "id": "slim_brown",
+      "name": "Slim — Brown",
+      "description": "Slim / lean build, brown skin (Image 4 - brown)",
+      "image": "/images/body_slim_brown.png",
+      "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": -2 },
+        "torso": { "x": 0, "y": 0 },
+        "legs": { "x": 0, "y": 2 }
+      },
+      "widthMultiplier": 0.94,
+      "statBonuses": { "agility": 2, "technique": 1 }
+    },
+    {
+      "id": "slim_dark",
+      "name": "Slim — Dark",
+      "description": "Slim / lean build, dark skin (Image 4 - dark)",
+      "image": "/images/body_slim_dark.png",
+      "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": -2 },
+        "torso": { "x": 0, "y": 0 },
+        "legs": { "x": 0, "y": 2 }
+      },
+      "widthMultiplier": 0.94,
+      "statBonuses": { "agility": 2, "technique": 1 }
     }
-  ],
-  "skinColors": [
-    { "id": "fair", "name": "Fair", "hex": "#f5d6c6", "image": "/images/skin_fair.svg" },
-    { "id": "tan", "name": "Tan", "hex": "#d4a373", "image": "/images/skin_tan.svg" },
-    { "id": "brown", "name": "Brown", "hex": "#8d5a3c", "image": "/images/skin_brown.svg" },
-    { "id": "dark", "name": "Dark", "hex": "#55342b", "image": "/images/skin_dark.svg" }
   ]
 }
