@@ -1,0 +1,212 @@
+{
+  "archetypes": [
+    {
+      "id": "high_flyer",
+      "name": "High-Flyer",
+      "description": "Aerial specialist — excels at agility, acrobatics and crowd-pleasing moves.",
+      "image": "/images/archetype_high_flyer.svg",
+      "offset": { "x": 50, "y": 42, "scale": 1.0, "rotation": 0, "zIndex": 10 },
+      "anchors": {
+        "head": { "x": 50, "y": 18 },
+        "torso": { "x": 50, "y": 48 },
+        "legs": { "x": 50, "y": 84 },
+        "left-leg": { "x": 40, "y": 84 },
+        "right-leg": { "x": 60, "y": 84 },
+        "left-shoulder": { "x": 38, "y": 38 },
+        "right-shoulder": { "x": 62, "y": 38 }
+      },
+      "baseStats": { "strength": 5, "agility": 10, "stamina": 7, "vitality": 3, "charisma": 6, "technique": 6 }
+    },
+    {
+      "id": "powerhouse",
+      "name": "Powerhouse",
+      "description": "Brute force competitor — high strength and resilience, favors powerful slams.",
+      "image": "/images/archetype_powerhouse.svg",
+      "offset": { "x": 50, "y": 44, "scale": 1.05, "rotation": 0, "zIndex": 10 },
+      "anchors": {
+        "head": { "x": 50, "y": 20 },
+        "torso": { "x": 50, "y": 50 },
+        "legs": { "x": 50, "y": 86 },
+        "left-leg": { "x": 42, "y": 86 },
+        "right-leg": { "x": 58, "y": 86 },
+        "left-shoulder": { "x": 36, "y": 40 },
+        "right-shoulder": { "x": 64, "y": 40 }
+      },
+      "baseStats": { "strength": 10, "agility": 4, "stamina": 8, "vitality": 6, "charisma": 5, "technique": 4 }
+    },
+    {
+      "id": "technician",
+      "name": "Technician",
+      "description": "Technical grappler — focuses on holds, counters and ring IQ.",
+      "image": "/images/archetype_technician.svg",
+      "offset": { "x": 50, "y": 42, "scale": 1.0, "rotation": 0, "zIndex": 10 },
+      "anchors": {
+        "head": { "x": 50, "y": 17 },
+        "torso": { "x": 50, "y": 46 },
+        "legs": { "x": 50, "y": 82 },
+        "left-leg": { "x": 40, "y": 82 },
+        "right-leg": { "x": 60, "y": 82 },
+        "left-shoulder": { "x": 38, "y": 36 },
+        "right-shoulder": { "x": 62, "y": 36 }
+      },
+      "baseStats": { "strength": 6, "agility": 7, "stamina": 7, "vitality": 4, "charisma": 5, "technique": 10 }
+    }
+  ],
+  "attire": [
+    {
+      "id": "classic_trunks",
+      "name": "Classic Trunks",
+      "description": "Traditional ring trunks — lightweight, lets you move freely.",
+      "image": "/images/attire_classic_trunks.svg",
+      "offset": { "x": 50, "y": 64, "scale": 1.0, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 1, "charisma": 1 }
+    },
+    {
+      "id": "spandex_tight",
+      "name": "Spandex Tight",
+      "description": "Tight spandex gear for speed and flexibility.",
+      "image": "/images/attire_spandex_tight.svg",
+      "offset": { "x": 50, "y": 60, "scale": 1.02, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 2, "technique": 1 }
+    }
+  ],
+  "masks": [
+    {
+      "id": "no_mask",
+      "name": "No Mask",
+      "description": "No mask — natural face, neutral protection.",
+      "image": "/images/mask_no_mask.svg",
+      "offset": { "x": 50, "y": 28, "scale": 0.8, "rotation": 0, "zIndex": 50 },
+      "armor": 0,
+      "statBonuses": { "charisma": 0 }
+    },
+    {
+      "id": "luchador_mask",
+      "name": "Luchador Mask (Ornate)",
+      "description": "Ornate luchador mask with symbolic design — high charisma and ring presence.",
+      "image": "/images/mask_luchador_mask.svg",
+      "offset": { "x": 50, "y": 28, "scale": 0.9, "rotation": 0, "zIndex": 55 },
+      "armor": 3,
+      "statBonuses": { "charisma": 3, "agility": 1 }
+    }
+  ],
+  "accessories": [
+    {
+      "id": "long_hair",
+      "name": "Long Hair",
+      "description": "Long flowing hair, great for drama and visual flair.",
+      "image": "/images/accessory_long_hair.svg",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+    {
+      "id": "entrance_cape",
+      "name": "Entrance Cape",
+      "description": "Dramatic cape for the entrance — big charisma boost while on the ramp.",
+      "image": "/images/accessory_entrance_cape.svg",
+      "defaultAttachTo": "torso",
+      "offset": { "x": 0, "y": 8, "scale": 1.2, "rotation": 0, "zIndex": 25 },
+      "statBonuses": { "charisma": 3 }
+    },
+    {
+      "id": "left_knee_pad",
+      "name": "Left Knee Pad",
+      "description": "Knee pad for the left leg.",
+      "image": "/images/accessory_knee_pads.svg",
+      "defaultAttachTo": "left-leg",
+      "offset": { "x": 0, "y": 2, "scale": 0.5, "rotation": 0, "zIndex": 20 },
+      "statBonuses": { "stamina": 1, "vitality": 1 }
+    },
+    {
+      "id": "right_knee_pad",
+      "name": "Right Knee Pad",
+      "description": "Knee pad for the right leg.",
+      "image": "/images/accessory_knee_pads.svg",
+      "defaultAttachTo": "right-leg",
+      "offset": { "x": 0, "y": 2, "scale": 0.5, "rotation": 0, "zIndex": 20 },
+      "statBonuses": { "stamina": 1, "vitality": 1 }
+    }
+  ],
+  "heights": [
+    {
+      "id": "short",
+      "name": "Short",
+      "image": "/images/height_short.svg",
+      "offset": { "x": 50, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 0 },
+      "statBonuses": { "agility": 1, "technique": 1 }
+    },
+    {
+      "id": "average",
+      "name": "Average",
+      "image": "/images/height_average.svg",
+      "offset": { "x": 50, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 0 },
+      "statBonuses": {}
+    },
+    {
+      "id": "tall",
+      "name": "Tall",
+      "image": "/images/height_tall.svg",
+      "offset": { "x": 50, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 0 },
+      "statBonuses": { "strength": 1, "charisma": 1, "agility": -1 }
+    }
+  ],
+  "bodyTypes": [
+    {
+      "id": "lean",
+      "name": "Lean",
+      "image": "/images/body_lean.svg",
+      "offset": { "x": 50, "y": 50, "scale": 1.0, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": -2 },
+        "torso": { "x": 0, "y": 0 },
+        "legs": { "x": 0, "y": 2 },
+        "left-leg": { "x": -2, "y": 2 },
+        "right-leg": { "x": 2, "y": 2 },
+        "left-shoulder": { "x": -3, "y": -1 },
+        "right-shoulder": { "x": 3, "y": -1 }
+      },
+      "statBonuses": { "agility": 2, "technique": 1 }
+    },
+    {
+      "id": "muscular",
+      "name": "Muscular",
+      "image": "/images/body_muscular.svg",
+      "offset": { "x": 50, "y": 50, "scale": 1.02, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 0 },
+        "torso": { "x": 0, "y": 1 },
+        "legs": { "x": 0, "y": 3 },
+        "left-leg": { "x": -1, "y": 3 },
+        "right-leg": { "x": 1, "y": 3 },
+        "left-shoulder": { "x": -2, "y": 0 },
+        "right-shoulder": { "x": 2, "y": 0 }
+      },
+      "statBonuses": { "strength": 2, "vitality": 1 }
+    },
+    {
+      "id": "bulky",
+      "name": "Bulky",
+      "image": "/images/body_bulky.svg",
+      "offset": { "x": 50, "y": 50, "scale": 1.06, "rotation": 0, "zIndex": 5 },
+      "anchorOffsets": {
+        "head": { "x": 0, "y": 2 },
+        "torso": { "x": 0, "y": 3 },
+        "legs": { "x": 0, "y": 6 },
+        "left-leg": { "x": -1, "y": 6 },
+        "right-leg": { "x": 1, "y": 6 },
+        "left-shoulder": { "x": -2, "y": 1 },
+        "right-shoulder": { "x": 2, "y": 1 }
+      },
+      "statBonuses": { "strength": 3, "vitality": 2, "agility": -2 }
+    }
+  ],
+  "skinColors": [
+    { "id": "fair", "name": "Fair", "hex": "#f5d6c6", "image": "/images/skin_fair.svg" },
+    { "id": "tan", "name": "Tan", "hex": "#d4a373", "image": "/images/skin_tan.svg" },
+    { "id": "brown", "name": "Brown", "hex": "#8d5a3c", "image": "/images/skin_brown.svg" },
+    { "id": "dark", "name": "Dark", "hex": "#55342b", "image": "/images/skin_dark.svg" }
+  ]
+}
