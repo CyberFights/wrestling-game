@@ -214,7 +214,7 @@
       "id": "muscular_fair",
       "name": "Muscular — Fair",
       "description": "Muscular build, fair skin (Image 2 - fair)",
-      "image": "/images/muscularasian.png",
+      "image": "/images/muscleasian.png",
       "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": 1 },
@@ -228,7 +228,7 @@
       "id": "muscular_tan",
       "name": "Muscular — Tan",
       "description": "Muscular build, tan skin (Image 2 - tan)",
-      "image": "/images/muscularwhite.png",
+      "image": "/images/musclewhite.png",
       "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": 1 },
@@ -242,7 +242,7 @@
       "id": "muscular_brown",
       "name": "Muscular — Brown",
       "description": "Muscular build, brown skin (Image 2 - brown)",
-      "image": "/images/musculartan.png",
+      "image": "/images/muscletan.png",
       "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": 1 },
@@ -256,7 +256,7 @@
       "id": "muscular_dark",
       "name": "Muscular — Dark",
       "description": "Muscular build, dark skin (Image 2 - dark)",
-      "image": "/images/muscularblack.png",
+      "image": "/images/muscleblack.png",
       "offset": { "x": 50, "y": 50, "scale": 1.03, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": 1 },
