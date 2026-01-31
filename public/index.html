@@ -2,80 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <title>Wrestling Creator — Zones, Mirror & Export</title>
+  <title>Wrestling Creator — Choose Body & Skin First</title>
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <style>
-    body { font-family: system-ui, Arial; margin:16px; max-width:1300px; content-align: center; }
+    body { font-family: system-ui, Arial; margin:16px; max-width:1300px; }
+    h1 { margin-bottom:8px; }
     .layout { display:flex; gap:16px; align-items:flex-start; }
     .left { flex:1; }
     .right { width:520px; }
     .card { border:1px solid #e6e7eb; border-radius:8px; padding:12px; margin-bottom:12px; background:#fff; }
     .thumb-grid { display:flex; gap:8px; flex-wrap:wrap; }
-    .thumb { width:84px; height:84px; border:1px solid #e6e7eb; border-radius:6px; padding:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:white; cursor:pointer; }
-    .thumb img { max-width:64px; max-height:48px; object-fit:contain; }
+    .thumb { width:120px; height:160px; border:1px solid #e6e7eb; border-radius:6px; padding:6px; display:flex; flex-direction:column; align-items:center; justify-content:center; background:white; cursor:pointer; }
+    .thumb img { max-width:100%; max-height:110px; object-fit:cover; border-radius:4px; }
     .small { font-size:12px; color:#6b7280; }
     .avatar-stage { position:relative; width:420px; height:630px; background:#fff; border:1px solid #ddd; border-radius:6px; overflow:hidden; margin:8px auto; }
     .avatar-layer { position:absolute; left:0; top:0; width:100%; height:100%; pointer-events:none; }
     .layered { position:absolute; transform-origin:center center; pointer-events:auto; will-change:transform,left,top; }
-    .accessory-pill { display:flex; align-items:center; gap:6px; padding:4px 6px; border-radius:6px; border:1px solid #e6e7eb; background:#fff; }
     .controls { display:flex; gap:8px; justify-content:center; margin-top:8px; }
+    .accessory-pill { display:flex; align-items:center; gap:6px; padding:4px 6px; border-radius:6px; border:1px solid #e6e7eb; background:#fff; }
     .dialog { position:fixed; left:50%; top:50%; transform:translate(-50%,-50%); background:#fff; border:1px solid #d1d5db; padding:12px; border-radius:8px; z-index:9999; box-shadow:0 6px 24px rgba(15,23,42,0.15); }
     .overlay { position:fixed; inset:0; background:rgba(0,0,0,0.35); z-index:9998; }
-    input[type="range"] { width:160px; }
+    input[type="range"] { width:200px; }
+    label { font-size:13px; display:block; margin-bottom:4px; }
+    select { padding:8px; border-radius:6px; border:1px solid #d1d5db; }
+    .btn { padding:8px 10px; border-radius:6px; border:1px solid #d1d5db; background:#fff; cursor:pointer; }
+    .btn.primary { background:#2563eb; color:#fff; border-color:transparent; }
     .anchor-dot { position:absolute; width:10px; height:10px; border-radius:50%; background:rgba(37,99,235,0.9); transform:translate(-50%,-50%); pointer-events:none; }
   </style>
 </head>
 <body>
-  <h1>Wrestling Creator — Zones, Mirror & Export</h1>
+  <h1>Wrestling Creator — Body & Skin First</h1>
+
+  <div class="card">
+    <div style="display:flex; gap:12px; align-items:center;">
+      <input id="name" placeholder="Wrestler name" style="flex:1;padding:8px;border:1px solid #e5e7eb;border-radius:6px" />
+      <button id="saveBtn" class="btn primary">Save</button>
+    </div>
+    <div class="small" style="margin-top:6px">First, choose a body type and skin color. Then select height (affects vertical scale) — clothing will resize automatically to match proportions.</div>
+  </div>
 
   <div class="layout">
     <div class="left">
       <div class="card">
-        <div style="display:flex; gap:8px;">
-          <input id="name" placeholder="Wrestler name" style="flex:1;padding:8px;border:1px solid #e6e7eb;border-radius:6px" />
-          <button id="saveBtn" style="background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Save</button>
-        </div>
-        <div class="small" style="margin-top:6px">Drag thumbnails onto the avatar. Dropped accessories snap to nearest anchor; you can edit mirror/rotation before or after equipping.</div>
+        <div class="small" style="margin-bottom:8px">1) Choose Body Type (based on provided images)</div>
+        <div id="bodyTypes" class="thumb-grid"></div>
       </div>
 
       <div class="card">
-        <div class="small">Archetypes</div>
-        <div id="archetypes" class="thumb-grid"></div>
+        <div class="small" style="margin-bottom:8px">2) Choose Skin Color</div>
+        <div id="skinColors" class="thumb-grid"></div>
       </div>
 
       <div class="card">
-        <div class="small">Attire</div>
-        <div id="attires" class="thumb-grid"></div>
+        <div class="small" style="margin-bottom:8px">3) Height — changes vertical scale while keeping width proportionate per body type</div>
+        <label for="heightSelect">Preset heights</label>
+        <select id="heightSelect">
+          <option value="short">Short</option>
+          <option value="average">Average</option>
+          <option value="tall">Tall</option>
+        </select>
+
+        <label style="margin-top:8px">Fine height adjustment</label>
+        <input id="heightRange" type="range" min="80" max="120" value="100" />
+        <div class="small" id="heightValue">Height scale: 100%</div>
       </div>
 
       <div class="card">
-        <div class="small">Masks</div>
-        <div id="masks" class="thumb-grid"></div>
-      </div>
-
-      <div class="card">
-        <div class="small">Accessories</div>
-        <div id="accessories" class="thumb-grid"></div>
-        <div class="small" style="margin-top:6px">Click an accessory to open configuration dialog (choose attach zone, mirror, rotation) and add multiple instances.</div>
-      </div>
-
-      <div class="card">
-        <div class="small">Heights / Body / Skin</div>
-        <div id="heights" class="thumb-grid" style="margin-top:8px"></div>
-        <div id="bodyTypes" class="thumb-grid" style="margin-top:8px"></div>
-        <div id="skinColors" class="thumb-grid" style="margin-top:8px"></div>
-      </div>
-
-      <div class="card">
-        <div class="small">Accessory Tray (equipped)</div>
-        <div id="accessoryTray" style="display:flex;gap:6px;flex-wrap:wrap;padding:8px;border:1px dashed #e6e7eb;border-radius:8px;min-height:48px;margin-top:8px"></div>
-        <div class="small" style="margin-top:8px">Grouped by attach zones; click an item in the tray to edit or remove.</div>
+        <div class="small">Other customization (unlocked after body/skin selected)</div>
+        <div style="margin-top:8px" class="small">Attire, masks and accessories will be enabled after body & skin are picked.</div>
       </div>
     </div>
 
     <div class="right">
       <div class="card" style="text-align:center">
-        <div class="small">Live Avatar — click accessory on avatar to remove (or edit via tray)</div>
+        <div class="small">Live Avatar — clothing auto-resizes to body width & height scales</div>
         <div id="avatarStage" class="avatar-stage" style="margin-top:8px">
           <div id="layerSkin" class="avatar-layer"></div>
           <div id="layerBody" class="avatar-layer"></div>
@@ -86,11 +86,25 @@
         </div>
 
         <div class="controls">
-          <button id="randomBtn">Random</button>
-          <button id="clearBtn">Clear</button>
-          <button id="toggleAnchorsBtn">Toggle Anchors</button>
-          <button id="exportBtn" style="background:#10b981;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Export PNG</button>
+          <button id="randomBtn" class="btn">Random</button>
+          <button id="clearBtn" class="btn">Clear</button>
+          <button id="toggleAnchorsBtn" class="btn">Toggle Anchors</button>
+          <button id="exportBtn" class="btn" style="background:#10b981;color:#fff;border:none">Export PNG</button>
         </div>
+      </div>
+
+      <div class="card">
+        <div class="small">Presets: Attire / Masks / Accessories</div>
+        <div style="margin-top:8px">
+          <div id="attires" class="thumb-grid"></div>
+          <div id="masks" class="thumb-grid" style="margin-top:8px"></div>
+          <div id="accessories" class="thumb-grid" style="margin-top:8px"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="small">Equipped Accessories</div>
+        <div id="accessoryTray" style="display:flex;gap:6px;flex-wrap:wrap;padding:8px;border:1px dashed #e6e7eb;border-radius:8px;min-height:48px;margin-top:8px"></div>
       </div>
 
       <div class="card">
@@ -100,9 +114,9 @@
     </div>
   </div>
 
-  <!-- accessory configure dialog -->
-  <div id="overlay" style="display:none" class="overlay"></div>
-  <div id="dialog" style="display:none" class="dialog" role="dialog" aria-modal="true">
+  <!-- accessory configuration dialog (reused) -->
+  <div id="overlay" class="overlay" style="display:none"></div>
+  <div id="dialog" class="dialog" style="display:none">
     <div style="font-weight:600;margin-bottom:8px" id="dialogTitle">Configure Accessory</div>
     <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
       <img id="dialogImg" src="" alt="" style="width:64px;height:64px;object-fit:contain;border:1px solid #e6e7eb;padding:4px;background:#fff" />
@@ -126,8 +140,8 @@
     </div>
 
     <div style="display:flex;gap:8px;justify-content:flex-end">
-      <button id="cancelDialog">Cancel</button>
-      <button id="addAccessoryBtn" style="background:#2563eb;color:#fff;border:none;padding:8px 12px;border-radius:6px;cursor:pointer">Add Accessory</button>
+      <button id="cancelDialog" class="btn">Cancel</button>
+      <button id="addAccessoryBtn" class="btn primary">Add</button>
     </div>
   </div>
 
@@ -140,88 +154,198 @@
     };
 
     let presets = null;
-    // current selection and equipped accessories
+
+    // selection state:
     const sel = {
       archetypeId: null,
       attireId: null,
       maskId: null,
-      // accessories: array of instances { uid, id, attachTo, mirror, rotation, offset: {x,y,scale} }
-      accessories: [],
-      heightId: null,
+      accessories: [], // instances: { uid, id, attachTo, mirror, rotation, offset }
+      heightPreset: 'average',
+      heightScale: 1.0, // manual fine-tune: 0.8..1.2 mapped from range
       bodyTypeId: null,
       skinColorId: null
     };
 
     let anchorsVisible = false;
 
-    // Utilities
     function uid() { return 'u' + Math.random().toString(36).slice(2,9); }
 
-    function createThumb(item, category) {
-      const d = document.createElement('div');
-      d.className = 'thumb';
-      d.draggable = true;
-      d.dataset.id = item.id;
-      d.dataset.category = category;
-      const img = document.createElement('img');
-      img.src = item.image || '';
-      img.alt = item.name;
-      const lbl = document.createElement('div');
-      lbl.className = 'small';
-      lbl.textContent = item.name;
-      d.appendChild(img);
-      d.appendChild(lbl);
+    async function init() {
+      presets = await api.getPresets();
 
-      d.addEventListener('click', () => openAccessoryDialog(item, category));
-      d.addEventListener('dragstart', ev => {
-        ev.dataTransfer.setData('application/json', JSON.stringify({ category, id: item.id }));
-        ev.dataTransfer.effectAllowed = 'copy';
+      // Render body type selector first (these are the images 1..4 as requested)
+      const bodyCont = document.getElementById('bodyTypes');
+      presets.bodyTypes.forEach(bt => {
+        const d = document.createElement('div');
+        d.className = 'thumb';
+        d.title = bt.name + (bt.description ? ' — ' + bt.description : '');
+        const img = document.createElement('img');
+        img.src = bt.image;
+        img.alt = bt.name;
+        const lbl = document.createElement('div');
+        lbl.className = 'small';
+        lbl.textContent = bt.name;
+        d.appendChild(img); d.appendChild(lbl);
+        d.addEventListener('click', () => {
+          sel.bodyTypeId = bt.id;
+          // lock selection UI: indicate chosen
+          Array.from(bodyCont.children).forEach(c => c.style.outline = 'none');
+          d.style.outline = '3px solid #2563eb';
+          enableCustomizationIfReady();
+          updateAvatar();
+        });
+        bodyCont.appendChild(d);
       });
-      return d;
+
+      // skin color chooser
+      const skinCont = document.getElementById('skinColors');
+      presets.skinColors.forEach(s => {
+        const d = document.createElement('div'); d.className = 'thumb';
+        const img = document.createElement('img'); img.src = s.image; img.alt = s.name;
+        const lbl = document.createElement('div'); lbl.className = 'small'; lbl.textContent = s.name;
+        d.appendChild(img); d.appendChild(lbl);
+        d.addEventListener('click', () => {
+          sel.skinColorId = s.id;
+          Array.from(skinCont.children).forEach(c => c.style.outline = 'none');
+          d.style.outline = '3px solid #2563eb';
+          enableCustomizationIfReady();
+          updateAvatar();
+        });
+        skinCont.appendChild(d);
+      });
+
+      // height presets and slider
+      const heightSelect = document.getElementById('heightSelect');
+      heightSelect.addEventListener('change', () => {
+        sel.heightPreset = heightSelect.value;
+        // apply base heightScale from presets.heights entry
+        const h = presets.heights.find(h => h.id === sel.heightPreset);
+        sel.heightScale = h?.offset?.scale ?? 1;
+        document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
+        document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
+        updateAvatar();
+      });
+      const heightRange = document.getElementById('heightRange');
+      heightRange.addEventListener('input', (e) => {
+        sel.heightScale = Number(e.target.value) / 100;
+        document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
+        updateAvatar();
+      });
+
+      // Attires / masks / accessories render (disabled until body+skin selected)
+      renderCustomizationLists();
+
+      // control buttons
+      document.getElementById('saveBtn').addEventListener('click', saveWrestler);
+      document.getElementById('randomBtn').addEventListener('click', randomizeSelection);
+      document.getElementById('clearBtn').addEventListener('click', clearSelection);
+      document.getElementById('toggleAnchorsBtn').addEventListener('click', () => { anchorsVisible = !anchorsVisible; updateAvatar(); });
+      document.getElementById('exportBtn').addEventListener('click', exportToPNG);
+
+      // overlay/dialog handlers
+      document.getElementById('cancelDialog').addEventListener('click', closeDialog);
+      document.getElementById('overlay').addEventListener('click', closeDialog);
+
+      // initialize defaults for height
+      const defaultH = presets.heights.find(h => h.id === sel.heightPreset);
+      sel.heightScale = defaultH?.offset?.scale ?? 1;
+      document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
+      document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
+
+      // finalize
+      updateAvatar();
+      loadCharacters();
     }
 
+    function enableCustomizationIfReady() {
+      // unlock the customization lists only after both bodyType and skinColor are chosen
+      const ready = !!sel.bodyTypeId && !!sel.skinColorId;
+      ['attires','masks','accessories'].forEach(id => {
+        const cont = document.getElementById(id);
+        if (cont) cont.style.opacity = ready ? '1' : '0.4';
+        Array.from(cont?.querySelectorAll('.thumb') || []).forEach(t => {
+          t.style.pointerEvents = ready ? 'auto' : 'none';
+        });
+      });
+    }
+
+    function renderCustomizationLists() {
+      // attires
+      const attCont = document.getElementById('attires');
+      presets.attire.forEach(a => {
+        const d = document.createElement('div'); d.className = 'thumb';
+        const img = document.createElement('img'); img.src = a.image; img.alt = a.name;
+        const lbl = document.createElement('div'); lbl.className = 'small'; lbl.textContent = a.name;
+        d.appendChild(img); d.appendChild(lbl);
+        d.addEventListener('click', () => {
+          if (!sel.bodyTypeId || !sel.skinColorId) { alert('Choose body type and skin color first'); return; }
+          sel.attireId = a.id;
+          updateAvatar();
+        });
+        attCont.appendChild(d);
+      });
+
+      // masks
+      const maskCont = document.getElementById('masks');
+      presets.masks.forEach(m => {
+        const d = document.createElement('div'); d.className = 'thumb';
+        const img = document.createElement('img'); img.src = m.image; img.alt = m.name;
+        const lbl = document.createElement('div'); lbl.className = 'small'; lbl.textContent = m.name;
+        d.appendChild(img); d.appendChild(lbl);
+        d.addEventListener('click', () => {
+          if (!sel.bodyTypeId || !sel.skinColorId) { alert('Choose body type and skin color first'); return; }
+          sel.maskId = m.id;
+          updateAvatar();
+        });
+        maskCont.appendChild(d);
+      });
+
+      // accessories (open dialog to configure mirror/rotation/attach zone)
+      const accCont = document.getElementById('accessories');
+      presets.accessories.forEach(acc => {
+        const d = document.createElement('div'); d.className = 'thumb';
+        const img = document.createElement('img'); img.src = acc.image; img.alt = acc.name;
+        const lbl = document.createElement('div'); lbl.className = 'small'; lbl.textContent = acc.name;
+        d.appendChild(img); d.appendChild(lbl);
+        d.addEventListener('click', () => {
+          if (!sel.bodyTypeId || !sel.skinColorId) { alert('Choose body type and skin color first'); return; }
+          openAccessoryDialog(acc);
+        });
+        accCont.appendChild(d);
+      });
+
+      enableCustomizationIfReady();
+    }
+
+    // accessory dialog behavior (same as before)
     function openAccessoryDialog(item, category, prefill) {
-      // category param used to restrict attach options list; but most accessories allow all zones
-      const overlay = document.getElementById('overlay');
-      const dialog = document.getElementById('dialog');
-      overlay.style.display = 'block';
-      dialog.style.display = 'block';
+      const overlay = document.getElementById('overlay'), dialog = document.getElementById('dialog');
+      overlay.style.display = 'block'; dialog.style.display = 'block';
       document.getElementById('dialogTitle').textContent = 'Configure: ' + item.name;
-      document.getElementById('dialogImg').src = item.image || '';
+      document.getElementById('dialogImg').src = item.image;
       document.getElementById('dialogName').textContent = item.name;
       document.getElementById('dialogDesc').textContent = item.description || '';
 
       const attachSelect = document.getElementById('attachSelect');
       attachSelect.innerHTML = '';
-      // gather available zones from current archetype anchors
+
+      // list zones from current archetype anchors + defaults
       const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
       const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
-      // union of arch.anchors keys + default zones
       const zones = new Set(Object.keys((arch.anchors || {})).concat(Object.keys((body.anchorOffsets || {}))).concat(['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder']));
-      Array.from(zones).forEach(z => {
-        const opt = document.createElement('option');
-        opt.value = z;
-        opt.textContent = z;
-        attachSelect.appendChild(opt);
-      });
+      Array.from(zones).forEach(z => { const opt = document.createElement('option'); opt.value = z; opt.textContent = z; attachSelect.appendChild(opt); });
 
-      // prefill options if provided
       document.getElementById('mirrorCheckbox').checked = prefill?.mirror || false;
       document.getElementById('rotationRange').value = prefill?.rotation ?? (item.offset?.rotation || 0);
       document.getElementById('rotationValue').textContent = document.getElementById('rotationRange').value + '°';
       if (prefill?.attachTo) attachSelect.value = prefill.attachTo;
       else attachSelect.value = item.defaultAttachTo || 'torso';
 
-      // handlers
-      document.getElementById('cancelDialog').onclick = closeDialog;
-      document.getElementById('overlay').onclick = closeDialog;
-      document.getElementById('rotationRange').oninput = (e) => {
-        document.getElementById('rotationValue').textContent = e.target.value + '°';
-      };
+      document.getElementById('rotationRange').oninput = (e) => { document.getElementById('rotationValue').textContent = e.target.value + '°'; };
 
-      // add button
       document.getElementById('addAccessoryBtn').onclick = () => {
-        const instance = {
+        const inst = {
           uid: uid(),
           id: item.id,
           attachTo: attachSelect.value,
@@ -229,43 +353,42 @@
           rotation: Number(document.getElementById('rotationRange').value),
           offset: { x: item.offset?.x || 0, y: item.offset?.y || 0, scale: item.offset?.scale || 1 }
         };
-        // If prefill has uid => editing an existing instance: replace
         if (prefill && prefill.uid) {
           const idx = sel.accessories.findIndex(a => a.uid === prefill.uid);
-          if (idx !== -1) sel.accessories[idx] = Object.assign({}, sel.accessories[idx], instance);
+          if (idx !== -1) sel.accessories[idx] = Object.assign({}, sel.accessories[idx], inst);
         } else {
-          sel.accessories.push(instance);
+          sel.accessories.push(inst);
         }
-        closeDialog();
-        renderAccessoryTray();
-        updateAvatar();
+        closeDialog(); renderAccessoryTray(); updateAvatar();
       };
+
+      document.getElementById('cancelDialog').onclick = closeDialog;
+      document.getElementById('overlay').onclick = closeDialog;
     }
 
-    function closeDialog() {
-      document.getElementById('overlay').style.display = 'none';
-      document.getElementById('dialog').style.display = 'none';
+    function closeDialog() { document.getElementById('overlay').style.display = 'none'; document.getElementById('dialog').style.display = 'none'; }
+
+    function renderAccessoryTray() {
+      const tray = document.getElementById('accessoryTray'); tray.innerHTML = '';
+      if (sel.accessories.length === 0) { tray.innerHTML = '<div class="small">No accessories equipped</div>'; return; }
+      const groups = {};
+      sel.accessories.forEach(inst => { const zone = inst.attachTo || 'unassigned'; groups[zone] = groups[zone] || []; groups[zone].push(inst); });
+      Object.keys(groups).forEach(zone => {
+        const header = document.createElement('div'); header.className = 'small'; header.style.width='100%'; header.style.marginTop='6px'; header.textContent = zone; tray.appendChild(header);
+        groups[zone].forEach(inst => {
+          const it = presets.accessories.find(a => a.id === inst.id);
+          const pill = document.createElement('div'); pill.className='accessory-pill';
+          const img = document.createElement('img'); img.src = it.image; img.style.width='36px'; img.style.height='36px';
+          const label = document.createElement('div'); label.className='small'; label.textContent = it.name + (inst.mirror ? ' ↔' : '') + ' ' + inst.rotation + '°';
+          const edit = document.createElement('button'); edit.textContent='Edit'; edit.className='btn'; edit.onclick = () => openAccessoryDialog(it, 'accessories', inst);
+          const rem = document.createElement('button'); rem.textContent='Remove'; rem.className='btn'; rem.onclick = () => { sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid); renderAccessoryTray(); updateAvatar(); };
+          pill.appendChild(img); pill.appendChild(label); pill.appendChild(edit); pill.appendChild(rem);
+          tray.appendChild(pill);
+        });
+      });
     }
 
-    function equipFromThumb(category, id) {
-      switch(category) {
-        case 'archetypes': sel.archetypeId = id; break;
-        case 'attire': sel.attireId = id; break;
-        case 'masks': sel.maskId = id; break;
-        case 'heights': sel.heightId = id; break;
-        case 'bodyTypes': sel.bodyTypeId = id; break;
-        case 'skinColors': sel.skinColorId = id; break;
-        case 'accessories':
-          // open dialog for accessory configuration
-          const item = presets.accessories.find(x => x.id === id);
-          if (item) openAccessoryDialog(item, category);
-          break;
-      }
-      renderAccessoryTray();
-      updateAvatar();
-    }
-
-    // compute anchor position from archetype anchors + bodyType anchorOffsets
+    // compute anchor position with bodyType offsets
     function computeAnchorPosition(attachPoint) {
       const arche = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
       const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
@@ -280,134 +403,131 @@
       return base;
     }
 
-    // compute nearest anchor zone to a drop point (dropX, dropY in percent)
-    function findNearestAnchor(dropX, dropY) {
-      const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
-      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
-      const candidateZones = new Set(Object.keys(arch.anchors || {}).concat(Object.keys(body.anchorOffsets || {})).concat(['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder']));
-      let best = null;
-      let bestDist = Infinity;
-      Array.from(candidateZones).forEach(z => {
-        const anchor = computeAnchorPosition(z);
-        const dx = anchor.x - dropX;
-        const dy = anchor.y - dropY;
-        const d = Math.sqrt(dx*dx + dy*dy);
-        if (d < bestDist) { bestDist = d; best = z; }
-      });
-      return best;
+    // apply width/height scaling to an image element when rendering
+    function applyProportionalTransform(el, leftPercent, topPercent, itemOffset, instance) {
+      // bodyType width multiplier
+      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
+      const bodyWidth = body.widthMultiplier || 1.0;
+
+      // global height scale from user slider
+      const hScale = sel.heightScale || 1.0;
+
+      // final scaleX and scaleY:
+      // width scales with bodyWidth and somewhat with height (to keep proportions)
+      const scaleX = (itemOffset?.scale || 1) * bodyWidth;
+      const scaleY = (itemOffset?.scale || 1) * hScale;
+
+      // if instance overrides mirror/rotation, apply them
+      const rotation = (instance?.rotation ?? itemOffset?.rotation) || 0;
+      const mirror = instance?.mirror ? -1 : 1;
+
+      // build transform
+      const tx = (leftPercent + (itemOffset?.x || 0)) + '%';
+      const ty = (topPercent + (itemOffset?.y || 0)) + '%';
+      const sx = scaleX * (mirror === -1 ? -1 : 1);
+      el.style.left = tx;
+      el.style.top = ty;
+      el.style.transform = `translate(-50%,-50%) scale(${sx},${scaleY}) rotate(${rotation}deg)`;
+      el.style.zIndex = (itemOffset?.zIndex !== undefined) ? itemOffset.zIndex : 10;
+      // for canvas export we will recompute pixel sizes
     }
 
-    // render accessory tray grouped by attachTo
-    function renderAccessoryTray() {
-      const tray = document.getElementById('accessoryTray');
-      tray.innerHTML = '';
-      // group by attachTo
-      const groups = {};
-      sel.accessories.forEach(inst => {
-        const zone = inst.attachTo || 'unassigned';
-        groups[zone] = groups[zone] || [];
-        groups[zone].push(inst);
-      });
-      Object.keys(groups).forEach(zone => {
-        const header = document.createElement('div');
-        header.className = 'small';
-        header.style.width = '100%';
-        header.style.marginTop = '6px';
-        header.textContent = zone;
-        tray.appendChild(header);
-        groups[zone].forEach(inst => {
-          const it = presets.accessories.find(a => a.id === inst.id);
-          const pill = document.createElement('div'); pill.className = 'accessory-pill';
-          const img = document.createElement('img'); img.src = it.image; img.style.width='36px'; img.style.height='36px';
-          const label = document.createElement('div'); label.className='small'; label.textContent = it.name + (inst.mirror ? ' ↔' : '') + ' ' + inst.rotation + '°';
-          const edit = document.createElement('button'); edit.textContent='Edit'; edit.style.marginLeft='8px';
-          edit.onclick = () => openAccessoryDialog(it, 'accessories', inst);
-          const rem = document.createElement('button'); rem.textContent='Remove'; rem.style.marginLeft='4px';
-          rem.onclick = () => { sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid); renderAccessoryTray(); updateAvatar(); };
-          pill.appendChild(img); pill.appendChild(label); pill.appendChild(edit); pill.appendChild(rem);
-          tray.appendChild(pill);
-        });
-      });
-      if (sel.accessories.length === 0) tray.innerHTML = '<div class="small">No accessories equipped</div>';
-    }
-
-    // create layered image element (for DOM avatar) with transforms applied
-    function createLayeredImageElement(item, leftPercent, topPercent, instance) {
+    // create DOM element for item with transforms
+    function createLayeredElement(item, leftPercent, topPercent, instance) {
       const img = document.createElement('img');
       img.className = 'layered';
       img.src = item.image || '';
       img.alt = item.name || '';
-      const off = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
-      const x = (leftPercent !== undefined) ? (leftPercent + (off.x || 0)) : (item.offset?.x || 50);
-      const y = (topPercent !== undefined) ? (topPercent + (off.y || 0)) : (item.offset?.y || 50);
-      const scale = off.scale || 1;
-      const rot = (instance?.rotation ?? off.rotation) || 0;
-      let transform = `translate(-50%,-50%) scale(${scale}) rotate(${rot}deg)`;
-      img.style.left = x + '%';
-      img.style.top = y + '%';
-      img.style.zIndex = (off.zIndex !== undefined) ? off.zIndex : 10;
-      if (instance?.mirror) {
-        // apply mirror by adding an additional scaleX(-1)
-        transform = `translate(-50%,-50%) scale(${-scale},${scale}) rotate(${rot}deg)`;
-      }
-      img.style.transform = transform;
+      const itemOffset = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
+      applyProportionalTransform(img, leftPercent, topPercent, itemOffset, instance);
       img.style.cursor = 'pointer';
       return img;
     }
 
-    // Update the DOM avatar render and anchor dots (for debugging)
     function updateAvatar() {
-      const layerIds = ['layerSkin','layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'];
-      layerIds.forEach(id => document.getElementById(id).innerHTML = '');
+      // clear layers
+      ['layerSkin','layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
 
-      function placeLayer(layerId, item) {
-        if (!item) return;
-        const left = item.offset?.x ?? 50;
-        const top = item.offset?.y ?? 50;
-        const el = createLayeredImageElement(item, left, top, null);
-        document.getElementById(layerId).appendChild(el);
+      // only draw something meaningful once bodyType & skinColor are set
+      // draw skin (if any)
+      const skin = presets.skinColors.find(s => s.id === sel.skinColorId);
+      if (skin) {
+        const skinLayer = document.getElementById('layerSkin');
+        const left = skin.offset?.x ?? 50; const top = skin.offset?.y ?? 50;
+        const el = createLayeredElement(skin, left, top, null);
+        skinLayer.appendChild(el);
       }
 
-      placeLayer('layerSkin', presets.skinColors.find(s => s.id === sel.skinColorId));
-      placeLayer('layerBody', presets.bodyTypes.find(b => b.id === sel.bodyTypeId));
-      placeLayer('layerArchetype', presets.archetypes.find(a => a.id === sel.archetypeId));
-      placeLayer('layerAttire', presets.attire.find(a => a.id === sel.attireId));
-      placeLayer('layerMask', presets.masks.find(m => m.id === sel.maskId));
+      // body
+      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId);
+      if (body) {
+        const layerBody = document.getElementById('layerBody');
+        const left = body.offset?.x ?? 50; const top = body.offset?.y ?? 50;
+        const el = createLayeredElement(body, left, top, null);
+        layerBody.appendChild(el);
+      }
 
-      // accessories: place each accessory at anchor+instance.offset (instance.offset x/y are additive in percent)
+      // archetype (if selected)
+      const arche = presets.archetypes.find(a => a.id === sel.archetypeId);
+      if (arche) {
+        const layerArch = document.getElementById('layerArchetype');
+        const left = arche.offset?.x ?? 50; const top = arche.offset?.y ?? 50;
+        const el = createLayeredElement(arche, left, top, null);
+        layerArch.appendChild(el);
+      }
+
+      // attire
+      const att = presets.attire.find(a => a.id === sel.attireId);
+      if (att) {
+        const layerAtt = document.getElementById('layerAttire');
+        // attire should be positioned relative to body anchors (use torso anchor)
+        const torso = computeAnchorPosition('torso');
+        const el = createLayeredElement(att, torso.x, torso.y, null);
+        layerAtt.appendChild(el);
+      }
+
+      // mask
+      const mask = presets.masks.find(m => m.id === sel.maskId);
+      if (mask) {
+        const torso = computeAnchorPosition('head');
+        const layerMask = document.getElementById('layerMask');
+        const el = createLayeredElement(mask, torso.x, torso.y, null);
+        layerMask.appendChild(el);
+      }
+
+      // accessories as instances
       const accLayer = document.getElementById('layerAccessories');
       sel.accessories.forEach(inst => {
         const item = presets.accessories.find(a => a.id === inst.id);
         if (!item) return;
-        const attachTo = inst.attachTo || item.defaultAttachTo || 'torso';
-        const anchor = computeAnchorPosition(attachTo);
-        // final pos = anchor + instance.offset (percent)
+        const attach = inst.attachTo || item.defaultAttachTo || 'torso';
+        const anchor = computeAnchorPosition(attach);
         const finalX = anchor.x + (inst.offset?.x || item.offset?.x || 0);
         const finalY = anchor.y + (inst.offset?.y || item.offset?.y || 0);
-        const el = createLayeredImageElement(item, finalX, finalY, inst);
-        // clicking accessory on avatar removes it (quick)
+        const el = createLayeredElement(item, finalX, finalY, inst);
         el.addEventListener('click', () => {
+          // clicking removes
           sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid);
           renderAccessoryTray(); updateAvatar();
         });
         accLayer.appendChild(el);
       });
 
-      // draw anchor dots if visible
+      // draw anchor debug dots if enabled
       Array.from(document.querySelectorAll('.anchor-dot')).forEach(n => n.remove());
-      if (anchorsVisible) {
-        const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
-        ['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder'].forEach(zone => {
-          const anchor = computeAnchorPosition(zone);
+      if (anchorsVisible && sel.bodyTypeId) {
+        const zones = ['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder'];
+        zones.forEach(z => {
+          const a = computeAnchorPosition(z);
           const dot = document.createElement('div'); dot.className = 'anchor-dot';
-          dot.style.left = anchor.x + '%'; dot.style.top = anchor.y + '%';
+          dot.style.left = a.x + '%'; dot.style.top = a.y + '%';
           document.getElementById('avatarStage').appendChild(dot);
         });
       }
     }
 
-    // handle drag-drop on avatar: snap to nearest anchor
-    function initDropHandlers() {
+    // drop handlers: similar to previous but snapping takes body anchors & scales into account
+    function initDrops() {
       const stage = document.getElementById('avatarStage');
       stage.addEventListener('dragover', ev => { ev.preventDefault(); ev.dataTransfer.dropEffect = 'copy'; });
       stage.addEventListener('drop', ev => {
@@ -416,14 +536,13 @@
           const data = JSON.parse(ev.dataTransfer.getData('application/json'));
           if (!data) return;
           if (data.category === 'accessories') {
-            // compute drop point in percent
+            if (!sel.bodyTypeId || !sel.skinColorId) { alert('Pick body type and skin first'); return; }
             const rect = stage.getBoundingClientRect();
             const x = ((ev.clientX - rect.left) / rect.width) * 100;
             const y = ((ev.clientY - rect.top) / rect.height) * 100;
             const nearest = findNearestAnchor(x, y);
             const item = presets.accessories.find(a => a.id === data.id);
             if (!item) return;
-            // create instance using item's default offset/rotation
             const instance = {
               uid: uid(),
               id: item.id,
@@ -435,116 +554,122 @@
             sel.accessories.push(instance);
             renderAccessoryTray(); updateAvatar();
           } else {
+            // other categories: equip directly (attire/mask/archetype)
             equipFromThumb(data.category, data.id);
           }
         } catch (e) {
-          console.warn('drop data parse failed', e);
+          console.warn('drop parse fail', e);
         }
       });
     }
 
-    // Export to PNG: resolve and draw all images to a canvas in correct z-order and transforms
+    // nearest anchor utility
+    function findNearestAnchor(x, y) {
+      const arch = presets.archetypes.find(a => a.id === sel.archetypeId) || {};
+      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || {};
+      const candidates = new Set(Object.keys(arch.anchors || {}).concat(Object.keys(body.anchorOffsets || {})).concat(['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder']));
+      let best = null; let bestD = Infinity;
+      Array.from(candidates).forEach(z => { const a = computeAnchorPosition(z); const dx = a.x - x; const dy = a.y - y; const d = Math.hypot(dx,dy); if (d < bestD) { best = z; bestD = d; } });
+      return best;
+    }
+
+    // helper for clicks on customization thumbnails
+    function equipFromThumb(category, id) {
+      if (category === 'attire') sel.attireId = id;
+      if (category === 'masks') sel.maskId = id;
+      if (category === 'archetypes') sel.archetypeId = id;
+      updateAvatar();
+    }
+
+    // Export to PNG: account for body widthMultiplier and heightScale when drawing
     async function exportToPNG() {
       const stage = document.getElementById('avatarStage');
-      // set a higher resolution canvas for export
       const targetW = 1200;
       const targetH = Math.round(targetW * (stage.clientHeight / stage.clientWidth));
-      const canvas = document.createElement('canvas');
-      canvas.width = targetW;
-      canvas.height = targetH;
+      const canvas = document.createElement('canvas'); canvas.width = targetW; canvas.height = targetH;
       const ctx = canvas.getContext('2d');
+      const loadImage = src => new Promise((res,rej)=>{ const i=new Image(); i.crossOrigin='anonymous'; i.onload=()=>res(i); i.onerror=rej; i.src=src; });
 
-      // helper to load image
-      const loadImage = (src) => new Promise((resolve, reject) => {
-        const img = new Image();
-        img.crossOrigin = 'anonymous';
-        img.onload = () => resolve(img);
-        img.onerror = reject;
-        img.src = src;
-      });
+      // collect draw items with computed pixel positions and transforms
+      const drawList = [];
 
-      // determine draw scale from DOM stage to canvas
-      const scaleX = canvas.width / stage.clientWidth;
-      const scaleY = canvas.height / stage.clientHeight;
+      const stageW = stage.clientWidth, stageH = stage.clientHeight;
+      const px = (p) => ({ x: p.x / 100 * stageW, y: p.y / 100 * stageH });
 
-      // draw order: skin, body, archetype, attire, mask, accessories (sorted by zIndex)
-      const drawItems = [];
-
-      function enqueue(item, leftPercent, topPercent, instance) {
+      // helper to enqueue items by percent coords
+      function enqueueItem(item, leftPercent, topPercent, instance) {
         if (!item || !item.image) return;
         const off = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
-        const left = (leftPercent / 100) * canvas.width;
-        const top = (topPercent / 100) * canvas.height;
-        drawItems.push({ item, left, top, instance, off });
+        // width multiplier from body
+        const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId) || { widthMultiplier: 1 };
+        const sx = (off.scale || 1) * (body.widthMultiplier || 1);
+        const sy = (off.scale || 1) * sel.heightScale;
+        const anchorPx = { x: leftPercent / 100 * stageW, y: topPercent / 100 * stageH };
+        drawList.push({ item, px: anchorPx, sx, sy, rotation: (instance?.rotation ?? off.rotation) || 0, mirror: instance?.mirror || false, z: off.zIndex || 10 });
       }
 
-      enqueue(presets.skinColors.find(s => s.id === sel.skinColorId), presets.skinColors.find(s => s.id === sel.skinColorId)?.offset?.x ?? 50, presets.skinColors.find(s => s.id === sel.skinColorId)?.offset?.y ?? 50, null);
-      enqueue(presets.bodyTypes.find(b => b.id === sel.bodyTypeId), presets.bodyTypes.find(b => b.id === sel.bodyTypeId)?.offset?.x ?? 50, presets.bodyTypes.find(b => b.id === sel.bodyTypeId)?.offset?.y ?? 50, null);
-      enqueue(presets.archetypes.find(a => a.id === sel.archetypeId), presets.archetypes.find(a => a.id === sel.archetypeId)?.offset?.x ?? 50, presets.archetypes.find(a => a.id === sel.archetypeId)?.offset?.y ?? 50, null);
-      enqueue(presets.attire.find(a => a.id === sel.attireId), presets.attire.find(a => a.id === sel.attireId)?.offset?.x ?? 50, presets.attire.find(a => a.id === sel.attireId)?.offset?.y ?? 50, null);
-      enqueue(presets.masks.find(m => m.id === sel.maskId), presets.masks.find(m => m.id === sel.maskId)?.offset?.x ?? 50, presets.masks.find(m => m.id === sel.maskId)?.offset?.y ?? 50, null);
+      // skin/body/archetype/attire/mask
+      const skin = presets.skinColors.find(s => s.id === sel.skinColorId);
+      if (skin) enqueueItem(skin, skin.offset?.x ?? 50, skin.offset?.y ?? 50, null);
 
-      // accessories: each instance placed relative to anchor + instance.offset
+      const body = presets.bodyTypes.find(b => b.id === sel.bodyTypeId);
+      if (body) enqueueItem(body, body.offset?.x ?? 50, body.offset?.y ?? 50, null);
+
+      const arch = presets.archetypes.find(a => a.id === sel.archetypeId);
+      if (arch) enqueueItem(arch, arch.offset?.x ?? 50, arch.offset?.y ?? 50, null);
+
+      const att = presets.attire.find(a => a.id === sel.attireId);
+      if (att) {
+        const torso = computeAnchorPosition('torso');
+        enqueueItem(att, torso.x, torso.y, null);
+      }
+
+      const mask = presets.masks.find(m => m.id === sel.maskId);
+      if (mask) {
+        const head = computeAnchorPosition('head');
+        enqueueItem(mask, head.x, head.y, null);
+      }
+
+      // accessories
       for (const inst of sel.accessories) {
-        const item = presets.accessories.find(a => a.id === inst.id);
-        if (!item) continue;
-        const attachTo = inst.attachTo || item.defaultAttachTo || 'torso';
-        const anchor = computeAnchorPosition(attachTo);
-        const finalX = anchor.x + (inst.offset?.x || item.offset?.x || 0);
-        const finalY = anchor.y + (inst.offset?.y || item.offset?.y || 0);
-        enqueue(item, finalX, finalY, inst);
+        const it = presets.accessories.find(a => a.id === inst.id);
+        if (!it) continue;
+        const attach = inst.attachTo || it.defaultAttachTo || 'torso';
+        const anchor = computeAnchorPosition(attach);
+        const finalX = anchor.x + (inst.offset?.x || it.offset?.x || 0);
+        const finalY = anchor.y + (inst.offset?.y || it.offset?.y || 0);
+        enqueueItem(it, finalX, finalY, inst);
       }
 
-      // sort by zIndex ascending (draw lower zIndex first)
-      drawItems.sort((a,b) => (a.off.zIndex||10) - (b.off.zIndex||10));
+      // sort by z and draw
+      drawList.sort((a,b) => (a.z || 10) - (b.z || 10));
 
-      // load all images
       try {
-        const loaded = await Promise.all(drawItems.map(d => loadImage(d.item.image)));
-        // draw white background
-        ctx.fillStyle = '#ffffff';
-        ctx.fillRect(0,0,canvas.width,canvas.height);
-
-        for (let i = 0; i < drawItems.length; i++) {
-          const d = drawItems[i];
-          const img = loaded[i];
-          const off = d.off;
-          const inst = d.instance;
-          const scale = (off.scale || 1) * (canvas.width / stage.clientWidth);
-          const drawW = img.naturalWidth * scale;
-          const drawH = img.naturalHeight * scale;
-          const cx = d.left;
-          const cy = d.top;
-
+        const loaded = await Promise.all(drawList.map(d => loadImage(d.item.image)));
+        ctx.fillStyle = '#fff'; ctx.fillRect(0,0,canvas.width,canvas.height);
+        for (let i=0;i<drawList.length;i++) {
+          const d = drawList[i]; const img = loaded[i];
+          const left = d.px.x * (canvas.width / stageW);
+          const top = d.px.y * (canvas.height / stageH);
+          const drawW = img.naturalWidth * d.sx * (canvas.width / stageW);
+          const drawH = img.naturalHeight * d.sy * (canvas.height / stageH);
           ctx.save();
-          ctx.translate(cx, cy);
-          // mirroring
-          const mirror = inst?.mirror ? -1 : 1;
-          if (mirror === -1) ctx.scale(-1,1);
-          // rotation in radians (from instance if present else off.rotation)
-          const rotation = ((inst?.rotation !== undefined) ? inst.rotation : (off.rotation || 0)) * Math.PI / 180;
-          if (rotation) ctx.rotate(rotation);
-          // draw centered
-          ctx.drawImage(img, -drawW/2 * (mirror === -1 ? -1 : 1), -drawH/2, drawW * (mirror === -1 ? -1 : 1), drawH);
+          ctx.translate(left, top);
+          if (d.mirror) ctx.scale(-1,1);
+          const rad = d.rotation * Math.PI / 180;
+          if (rad) ctx.rotate(rad);
+          ctx.drawImage(img, -drawW/2 * (d.mirror ? -1 : 1), -drawH/2, drawW * (d.mirror ? -1 : 1), drawH);
           ctx.restore();
         }
 
-        // generate PNG and download
         const url = canvas.toDataURL('image/png');
-        const a = document.createElement('a');
-        a.href = url;
-        const safeName = (document.getElementById('name').value || 'wrestler').replace(/[^a-z0-9_\-]/ig,'_');
-        a.download = safeName + '.png';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
+        const a = document.createElement('a'); a.href = url; a.download = (document.getElementById('name').value || 'wrestler') + '.png'; document.body.appendChild(a); a.click(); a.remove();
       } catch (e) {
         alert('Export failed: ' + e.message);
-        console.error(e);
       }
     }
 
-    // Save to server: maintain compatibility by sending accessoryIds
+    // Save (server expects list of accessory IDs) — compatibility kept
     async function saveWrestler() {
       const name = document.getElementById('name').value.trim();
       if (!name) { alert('Enter a name'); return; }
@@ -557,129 +682,136 @@
           attireId: sel.attireId,
           maskId: sel.maskId,
           accessoryIds,
-          heightId: sel.heightId,
+          heightId: sel.heightPreset,
           bodyTypeId: sel.bodyTypeId,
           skinColorId: sel.skinColorId
         }
       };
       try {
         await api.saveCharacter(payload);
-        await loadCharacters();
         alert('Saved ' + name);
+        loadCharacters();
       } catch (e) {
         alert('Save failed: ' + e.message);
       }
     }
 
-    // Randomize and clear
+    // accessory tray rendering & utility actions (similar to prior)
+    function renderAccessoryTray() {
+      const tray = document.getElementById('accessoryTray'); tray.innerHTML = '';
+      if (!sel.accessories.length) { tray.innerHTML = '<div class="small">No accessories equipped</div>'; return; }
+      const groups = {};
+      sel.accessories.forEach(inst => { const zone = inst.attachTo || 'unassigned'; groups[zone] = groups[zone] || []; groups[zone].push(inst); });
+      Object.keys(groups).forEach(zone => {
+        const header = document.createElement('div'); header.className='small'; header.style.width='100%'; header.style.marginTop='6px'; header.textContent = zone; tray.appendChild(header);
+        groups[zone].forEach(inst => {
+          const it = presets.accessories.find(a => a.id === inst.id);
+          const pill = document.createElement('div'); pill.className = 'accessory-pill';
+          const img = document.createElement('img'); img.src = it.image; img.style.width='36px'; img.style.height='36px';
+          const label = document.createElement('div'); label.className='small'; label.textContent = it.name + (inst.mirror ? ' ↔' : '') + ' ' + inst.rotation + '°';
+          const edit = document.createElement('button'); edit.className='btn'; edit.textContent='Edit'; edit.onclick = () => openAccessoryDialog(it,'accessories',inst);
+          const rem = document.createElement('button'); rem.className='btn'; rem.textContent='Remove'; rem.onclick = () => { sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid); renderAccessoryTray(); updateAvatar(); };
+          pill.appendChild(img); pill.appendChild(label); pill.appendChild(edit); pill.appendChild(rem);
+          tray.appendChild(pill);
+        });
+      });
+    }
+
+    // drag-drop initialization (for thumbnails)
+    function attachThumbnailDrags() {
+      document.querySelectorAll('.thumb').forEach(t => {
+        t.addEventListener('dragstart', (ev) => {
+          // custom data must be set by element dataset category/id when thumbnails created
+          const category = t.dataset.category;
+          const id = t.dataset.id;
+          if (category && id) {
+            ev.dataTransfer.setData('application/json', JSON.stringify({ category, id }));
+            ev.dataTransfer.effectAllowed = 'copy';
+          }
+        });
+      });
+    }
+
+    // basic utilities
     function randomizeSelection() {
-      const rand = arr => arr[Math.floor(Math.random() * arr.length)]?.id;
+      // pick random body & skin then random other picks
+      const rand = arr => arr[Math.floor(Math.random() * arr.length)].id;
+      sel.bodyTypeId = rand(presets.bodyTypes);
+      sel.skinColorId = rand(presets.skinColors);
+      sel.heightPreset = rand(presets.heights);
+      const h = presets.heights.find(h => h.id === sel.heightPreset);
+      sel.heightScale = h?.offset?.scale ?? 1;
       sel.archetypeId = rand(presets.archetypes);
       sel.attireId = rand(presets.attire);
       sel.maskId = rand(presets.masks);
-      sel.heightId = rand(presets.heights);
-      sel.bodyTypeId = rand(presets.bodyTypes);
-      sel.skinColorId = rand(presets.skinColors);
-      // accessories: random 0..3
       sel.accessories = [];
-      const accCount = Math.floor(Math.random() * Math.min(4, presets.accessories.length));
-      const shuffled = [...presets.accessories].sort(() => Math.random() - 0.5);
-      for (let i=0;i<accCount;i++) {
-        const it = shuffled[i];
-        sel.accessories.push({
-          uid: uid(),
-          id: it.id,
-          attachTo: it.defaultAttachTo || 'torso',
-          mirror: Math.random() > 0.5,
-          rotation: (Math.random()*60 - 30) | 0,
-          offset: { x: it.offset?.x || 0, y: it.offset?.y || 0, scale: it.offset?.scale || 1 }
-        });
-      }
-      renderAccessoryTray(); updateAvatar();
+      renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
+      document.getElementById('heightRange').value = Math.round(sel.heightScale * 100);
+      document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
+      // indicate chosen body/skin visuals
+      Array.from(document.querySelectorAll('#bodyTypes .thumb')).forEach(el => el.style.outline = (el.querySelector('img').src.includes(sel.bodyTypeId) ? '3px solid #2563eb' : 'none'));
     }
 
     function clearSelection() {
-      sel.archetypeId = presets.archetypes[0]?.id || null;
-      sel.attireId = presets.attire[0]?.id || null;
-      sel.maskId = presets.masks[0]?.id || null;
-      sel.accessories = [];
-      sel.heightId = presets.heights[0]?.id || null;
-      sel.bodyTypeId = presets.bodyTypes[0]?.id || null;
-      sel.skinColorId = presets.skinColors[0]?.id || null;
-      renderAccessoryTray(); updateAvatar();
+      sel.archetypeId = null; sel.attireId = null; sel.maskId = null; sel.accessories = [];
+      sel.heightPreset = 'average'; sel.heightScale = 1; sel.bodyTypeId = null; sel.skinColorId = null;
+      document.getElementById('heightRange').value = 100; document.getElementById('heightValue').textContent = 'Height scale: 100%';
+      // clear outlines
+      Array.from(document.querySelectorAll('#bodyTypes .thumb')).forEach(el => el.style.outline = 'none');
+      Array.from(document.querySelectorAll('#skinColors .thumb')).forEach(el => el.style.outline = 'none');
+      renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
     }
 
-    // load saved characters
     async function loadCharacters() {
+      const out = document.getElementById('charactersList'); out.innerHTML = '';
       try {
         const chars = await api.listCharacters();
-        const out = document.getElementById('charactersList');
-        out.innerHTML = '';
         if (!chars.length) { out.innerHTML = '<div class="small">No saved wrestlers</div>'; return; }
         chars.forEach(c => {
           const row = document.createElement('div'); row.style.padding='8px 0'; row.style.borderBottom='1px solid #f3f4f6';
           row.innerHTML = '<strong>' + c.name + '</strong><div class="small">Archetype: ' + (c.selection?.archetypeId || '-') + '</div>';
-          const loadBtn = document.createElement('button'); loadBtn.textContent='Load'; loadBtn.style.marginLeft='8px';
+          const loadBtn = document.createElement('button'); loadBtn.textContent='Load'; loadBtn.className='btn'; loadBtn.style.marginLeft='8px';
           loadBtn.addEventListener('click', () => {
             sel.archetypeId = c.selection?.archetypeId || sel.archetypeId;
             sel.attireId = c.selection?.attireId || sel.attireId;
             sel.maskId = c.selection?.maskId || sel.maskId;
-            // load accessoryIds as simple instances (no mirror/rotation); user can edit them
-            sel.accessories = (c.selection?.accessoryIds || []).map(id => ({
-              uid: uid(), id, attachTo: presets.accessories.find(a => a.id === id)?.defaultAttachTo || 'torso', mirror: false, rotation: 0, offset: { x: presets.accessories.find(a => a.id === id)?.offset?.x || 0, y: presets.accessories.find(a => a.id === id)?.offset?.y || 0, scale: presets.accessories.find(a => a.id === id)?.offset?.scale || 1 }
-            }));
-            sel.heightId = c.selection?.heightId || sel.heightId;
+            sel.heightPreset = c.selection?.heightId || sel.heightPreset;
+            const h = presets.heights.find(h => h.id === sel.heightPreset);
+            sel.heightScale = h?.offset?.scale ?? 1;
             sel.bodyTypeId = c.selection?.bodyTypeId || sel.bodyTypeId;
             sel.skinColorId = c.selection?.skinColorId || sel.skinColorId;
-            renderAccessoryTray(); updateAvatar();
+            // accessory IDs: load as basic instances (user may edit)
+            sel.accessories = (c.selection?.accessoryIds || []).map(id => {
+              const item = presets.accessories.find(a => a.id === id);
+              return { uid: uid(), id, attachTo: item?.defaultAttachTo || 'torso', mirror: false, rotation: 0, offset: { x: item?.offset?.x || 0, y: item?.offset?.y || 0, scale: item?.offset?.scale || 1 } };
+            });
+            renderAccessoryTray(); updateAvatar(); enableCustomizationIfReady();
+            document.getElementById('heightRange').value = Math.round(sel.heightScale * 100); document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
           });
           row.appendChild(loadBtn);
           out.appendChild(row);
         });
       } catch (e) {
-        document.getElementById('charactersList').textContent = 'Failed to load saved wrestlers';
+        out.textContent = 'Failed to load saved wrestlers';
       }
     }
 
-    // initialize UI
-    async function init() {
-      presets = await api.getPresets();
-
-      // Render thumbs into grids
-      const mapping = [
-        ['archetypes','archetypes'], ['attires','attire'], ['masks','masks'],
-        ['accessories','accessories'], ['heights','heights'], ['bodyTypes','bodyTypes'],
-        ['skinColors','skinColors']
-      ];
-      for (const [elId, key] of mapping) {
-        const cont = document.getElementById(elId);
-        const list = presets[key];
-        if (!cont || !list) continue;
-        cont.innerHTML = '';
-        list.forEach(item => cont.appendChild(createThumb(item, key)));
-      }
-
-      // set defaults
-      sel.archetypeId = presets.archetypes[0]?.id || null;
-      sel.attireId = presets.attire[0]?.id || null;
-      sel.maskId = presets.masks[0]?.id || null;
-      sel.heightId = presets.heights[0]?.id || null;
-      sel.bodyTypeId = presets.bodyTypes[0]?.id || null;
-      sel.skinColorId = presets.skinColors[0]?.id || null;
-
-      document.getElementById('saveBtn').addEventListener('click', saveWrestler);
-      document.getElementById('randomBtn').addEventListener('click', randomizeSelection);
-      document.getElementById('clearBtn').addEventListener('click', clearSelection);
-      document.getElementById('toggleAnchorsBtn').addEventListener('click', () => { anchorsVisible = !anchorsVisible; updateAvatar(); });
-      document.getElementById('exportBtn').addEventListener('click', exportToPNG);
-
-      initDropHandlers();
-      renderAccessoryTray();
-      updateAvatar();
-      loadCharacters();
+    // wire up drag data for thumbs after they exist in DOM
+    // thumbs created by renderCustomizationLists already; call attachThumbnailDrags once after render
+    // but thumbnails created earlier don't have dataset set; to support drag-drop from these thumbs, set dataset properties
+    function assignThumbnailDatasets() {
+      document.querySelectorAll('#attires .thumb').forEach(t => t.dataset.category = 'attire');
+      document.querySelectorAll('#masks .thumb').forEach(t => t.dataset.category = 'masks');
+      document.querySelectorAll('#accessories .thumb').forEach(t => t.dataset.category = 'accessories');
+      // if archetype thumbs were present, we could set them too
     }
 
-    init().catch(e => { console.error(e); alert('Init failed: ' + e.message); });
+    // initial invocation
+    init().then(() => {
+      initDrops();
+      assignThumbnailDatasets();
+      attachThumbnailDrags();
+    }).catch(e => { console.error(e); alert('Init failed: ' + e.message); });
   </script>
 </body>
 </html>
