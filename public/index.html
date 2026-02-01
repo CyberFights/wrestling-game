@@ -163,6 +163,27 @@
 
     function uid() { return 'u' + Math.random().toString(36).slice(2,9); }
 
+// ADD THIS FUNCTION HERE - at top level scope
+function enableCustomizationIfReady() {
+  const hasBody = !!sel.bodyTypeId;
+  const attCont  = document.getElementById('attires');
+  const maskCont = document.getElementById('masks');
+  const accCont  = document.getElementById('accessories');
+
+  [attCont, maskCont, accCont].forEach(cont => {
+    if (!cont) return;
+    if (hasBody) {
+      cont.style.pointerEvents = 'auto';
+      cont.style.opacity = '1';
+    } else {
+      cont.style.pointerEvents = 'none';
+      cont.style.opacity = '0.4';
+    }
+  });
+}
+
+// Remove the duplicate function definition inside init()
+
     // --- Patched init: guarded fetch, logging, and defensive checks ---
     async function init() {
       try {
@@ -235,27 +256,6 @@
         updateAvatar();
       });
       
-      function enableCustomizationIfReady() {
-  const hasBody = !!sel.bodyTypeId;
-
-  const attCont  = document.getElementById('attires');
-  const maskCont = document.getElementById('masks');
-  const accCont  = document.getElementById('accessories');
-
-  // Visually dim and block interaction when no body is selected
-  [attCont, maskCont, accCont].forEach(cont => {
-    if (!cont) return;
-    if (hasBody) {
-      cont.style.pointerEvents = 'auto';
-      cont.style.opacity = '1';
-    } else {
-      cont.style.pointerEvents = 'none';
-      cont.style.opacity = '0.4';
-    }
-  });
-}
-
-
 
       // render customization lists (attire/masks/accessories)
       renderCustomizationLists();
