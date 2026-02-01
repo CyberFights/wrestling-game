@@ -432,9 +432,9 @@ function enableCustomizationIfReady() {
   const hScale = sel.heightScale || 1.0;
   const scaleBase = itemOffset?.scale || 1;
   
-  // MAX SCALE LIMITS - prevents overflow
-  const scaleX = Math.min(scaleBase * bodyWidth, 1.05);  // cap at 105%
-  const scaleY = Math.min(scaleBase * hScale, 1.05);     // cap at 105%
+  // TIGHTER LIMITS - guarantees no overflow
+  const scaleX = Math.min(scaleBase * bodyWidth, 0.95);  // cap at 95%
+  const scaleY = Math.min(scaleBase * hScale, 0.95);     // cap at 95%
   
   const rotation = (instance?.rotation ?? itemOffset?.rotation) || 0;
   const mirror = instance?.mirror ? -1 : 1;
@@ -447,7 +447,6 @@ function enableCustomizationIfReady() {
   el.style.transform = `translate(-50%,-50%) scale(${sx},${scaleY}) rotate(${rotation}deg)`;
   el.style.zIndex = (itemOffset?.zIndex !== undefined) ? itemOffset.zIndex : 10;
 }
-
 
     function createLayeredElement(item, leftPercent, topPercent, instance) {
       const img = document.createElement('img');
