@@ -86,7 +86,7 @@
       "id": "luchador_mask",
       "name": "Luchador Mask (Ornate)",
       "description": "Ornate luchador mask with symbolic design.",
-      "image": "/images/mask_luchador_mask.svg",
+      "image": "/images/luchadormask.png",
       "offset": { "x": 50, "y": 28, "scale": 0.9, "rotation": 0, "zIndex": 55 },
       "armor": 3,
       "statBonuses": { "charisma": 3, "agility": 1 }
