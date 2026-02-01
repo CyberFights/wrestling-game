@@ -28,6 +28,10 @@
     .btn { padding:8px 10px; border-radius:6px; border:1px solid #d1d5db; background:#fff; cursor:pointer; }
     .btn.primary { background:#2563eb; color:#fff; border-color:transparent; }
     .anchor-dot { position:absolute; width:10px; height:10px; border-radius:50%; background:rgba(37,99,235,0.9); transform:translate(-50%,-50%); pointer-events:none; }
+.disabled-zone {
+  opacity: 0.4;
+  pointer-events: none;
+}
   </style>
 </head>
 <body>
@@ -230,6 +234,25 @@
         document.getElementById('heightValue').textContent = 'Height scale: ' + Math.round(sel.heightScale * 100) + '%';
         updateAvatar();
       });
+      
+      function enableCustomizationIfReady() {
+  const hasBody = !!sel.bodyTypeId;
+
+  const attCont  = document.getElementById('attires');
+  const maskCont = document.getElementById('masks');
+  const accCont  = document.getElementById('accessories');
+
+  if (hasBody) {
+    attCont.classList.remove('disabled-zone');
+    maskCont.classList.remove('disabled-zone');
+    accCont.classList.remove('disabled-zone');
+  } else {
+    attCont.classList.add('disabled-zone');
+    maskCont.classList.add('disabled-zone');
+    accCont.classList.add('disabled-zone');
+  }
+}
+
 
       // render customization lists (attire/masks/accessories)
       renderCustomizationLists();
@@ -433,12 +456,14 @@
       ['layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
 
       // body
-      const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
-      if (body) {
-        const layerBody = document.getElementById('layerBody');
-        const left = body.offset?.x ?? 50; const top = body.offset?.y ?? 50;
-        const el = createLayeredElement(body, left, top, null);
-        layerBody.appendChild(el);
+const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
+if (body) {
+  const layerBody = document.getElementById('layerBody');
+  const left = 50;  // center horizontally
+  const top  = 50;  // center vertically
+  const el = createLayeredElement(body, left, top, null);
+  layerBody.appendChild(el);
+}
       }
 
       // archetype (optional)
