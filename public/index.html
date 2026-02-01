@@ -449,15 +449,19 @@ function enableCustomizationIfReady() {
 }
 
     function createLayeredElement(item, leftPercent, topPercent, instance) {
-      const img = document.createElement('img');
-      img.className = 'layered';
-      img.src = item.image || '';
-      img.alt = item.name || '';
-      const itemOffset = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
-      applyProportionalTransform(img, leftPercent, topPercent, itemOffset, instance);
-      img.style.cursor = 'pointer';
-      return img;
-    }
+  const img = document.createElement('img');
+  img.className = 'layered';
+  img.src = item.image || '';
+  img.alt = item.name || '';
+  img.style.maxWidth = '90%';  // EMERGENCY CONTAINMENT
+  img.style.maxHeight = '90%';
+  
+  const itemOffset = instance?.offset || item.offset || { x:0, y:0, scale:1, rotation:0, zIndex:10 };
+  applyProportionalTransform(img, leftPercent, topPercent, itemOffset, instance);
+  img.style.cursor = 'pointer';
+  return img;
+}
+
 
     function updateAvatar() {
   ['layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
