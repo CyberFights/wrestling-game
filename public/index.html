@@ -462,8 +462,8 @@ function enableCustomizationIfReady() {
   const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
   if (body) {
     const layerBody = document.getElementById('layerBody');
-    const left = 50;  // center horizontally
-    const top  = 50;  // center vertically  
+    const left = 0;  // center horizontally
+    const top  = 0;  // center vertically  
     const el = createLayeredElement(body, left, top, null);
     layerBody.appendChild(el);
   }
@@ -472,8 +472,8 @@ function enableCustomizationIfReady() {
   const arche = presets.archetypes?.find(a => a.id === sel.archetypeId);
   if (arche) {
     const layerArch = document.getElementById('layerArchetype');
-    const left = arche.offset?.x ?? 50; 
-    const top = arche.offset?.y ?? 50;
+    const left = arche.offset?.x ?? 0; 
+    const top = arche.offset?.y ?? 0;
     const el = createLayeredElement(arche, left, top, null);
     layerArch.appendChild(el);
   }
