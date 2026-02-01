@@ -242,16 +242,19 @@
   const maskCont = document.getElementById('masks');
   const accCont  = document.getElementById('accessories');
 
-  if (hasBody) {
-    attCont.classList.remove('disabled-zone');
-    maskCont.classList.remove('disabled-zone');
-    accCont.classList.remove('disabled-zone');
-  } else {
-    attCont.classList.add('disabled-zone');
-    maskCont.classList.add('disabled-zone');
-    accCont.classList.add('disabled-zone');
-  }
+  // Visually dim and block interaction when no body is selected
+  [attCont, maskCont, accCont].forEach(cont => {
+    if (!cont) return;
+    if (hasBody) {
+      cont.style.pointerEvents = 'auto';
+      cont.style.opacity = '1';
+    } else {
+      cont.style.pointerEvents = 'none';
+      cont.style.opacity = '0.4';
+    }
+  });
 }
+
 
 
       // render customization lists (attire/masks/accessories)
