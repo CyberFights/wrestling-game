@@ -75,7 +75,7 @@
       "id": "leather_vest",
       "name": "Leather Vest",
       "description": "Leather vest gear for speed and flexibility.",
-      "image": "/images/attire_spandex_tight.svg",
+      "image": "/images/leathervest.png",
       "offset": { "x": 0, "y": 0, "scale": 1.02, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "technique": 2 }
