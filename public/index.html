@@ -456,75 +456,79 @@
     }
 
     function updateAvatar() {
-      ['layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
+  ['layerBody','layerArchetype','layerAttire','layerMask','layerAccessories'].forEach(id => document.getElementById(id).innerHTML = '');
 
-      // body
-const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
-if (body) {
-  const layerBody = document.getElementById('layerBody');
-  const left = 50;  // center horizontally
-  const top  = 50;  // center vertically
-  const el = createLayeredElement(body, left, top, null);
-  layerBody.appendChild(el);
+  // body - CENTERED
+  const body = presets.bodyTypes?.find(b => b.id === sel.bodyTypeId);
+  if (body) {
+    const layerBody = document.getElementById('layerBody');
+    const left = 50;  // center horizontally
+    const top  = 50;  // center vertically  
+    const el = createLayeredElement(body, left, top, null);
+    layerBody.appendChild(el);
+  }
+
+  // archetype (optional)
+  const arche = presets.archetypes?.find(a => a.id === sel.archetypeId);
+  if (arche) {
+    const layerArch = document.getElementById('layerArchetype');
+    const left = arche.offset?.x ?? 50; 
+    const top = arche.offset?.y ?? 50;
+    const el = createLayeredElement(arche, left, top, null);
+    layerArch.appendChild(el);
+  }
+
+  // attire (position at torso anchor)
+  const att = presets.attire?.find(a => a.id === sel.attireId);
+  if (att) {
+    const torso = computeAnchorPosition('torso');
+    const layerAtt = document.getElementById('layerAttire');
+    const el = createLayeredElement(att, torso.x, torso.y, null);
+    layerAtt.appendChild(el);
+  }
+
+  // mask (position at head anchor)
+  const mask = presets.masks?.find(m => m.id === sel.maskId);
+  if (mask) {
+    const head = computeAnchorPosition('head');
+    const layerMask = document.getElementById('layerMask');
+    const el = createLayeredElement(mask, head.x, head.y, null);
+    layerMask.appendChild(el);
+  }
+
+  // accessories
+  const accLayer = document.getElementById('layerAccessories');
+  sel.accessories.forEach(inst => {
+    const item = presets.accessories?.find(a => a.id === inst.id);
+    if (!item) return;
+    const attach = inst.attachTo || item.defaultAttachTo || 'torso';
+    const anchor = computeAnchorPosition(attach);
+    const finalX = anchor.x + (inst.offset?.x || item.offset?.x || 0);
+    const finalY = anchor.y + (inst.offset?.y || item.offset?.y || 0);
+    const el = createLayeredElement(item, finalX, finalY, inst);
+    el.addEventListener('click', () => {
+      sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid);
+      renderAccessoryTray(); 
+      updateAvatar();
+    });
+    accLayer.appendChild(el);
+  });
+
+  // anchor dots if debug on
+  Array.from(document.querySelectorAll('.anchor-dot')).forEach(n => n.remove());
+  if (anchorsVisible && sel.bodyTypeId) {
+    const zones = ['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder'];
+    zones.forEach(z => {
+      const a = computeAnchorPosition(z);
+      const dot = document.createElement('div'); 
+      dot.className = 'anchor-dot';
+      dot.style.left = a.x + '%'; 
+      dot.style.top = a.y + '%';
+      document.getElementById('avatarStage').appendChild(dot);
+    });
+  }
 }
-      }
 
-      // archetype (optional)
-      const arche = presets.archetypes?.find(a => a.id === sel.archetypeId);
-      if (arche) {
-        const layerArch = document.getElementById('layerArchetype');
-        const left = arche.offset?.x ?? 50; const top = arche.offset?.y ?? 50;
-        const el = createLayeredElement(arche, left, top, null);
-        layerArch.appendChild(el);
-      }
-
-      // attire (position at torso anchor)
-      const att = presets.attire?.find(a => a.id === sel.attireId);
-      if (att) {
-        const torso = computeAnchorPosition('torso');
-        const layerAtt = document.getElementById('layerAttire');
-        const el = createLayeredElement(att, torso.x, torso.y, null);
-        layerAtt.appendChild(el);
-      }
-
-      // mask (position at head anchor)
-      const mask = presets.masks?.find(m => m.id === sel.maskId);
-      if (mask) {
-        const head = computeAnchorPosition('head');
-        const layerMask = document.getElementById('layerMask');
-        const el = createLayeredElement(mask, head.x, head.y, null);
-        layerMask.appendChild(el);
-      }
-
-      // accessories
-      const accLayer = document.getElementById('layerAccessories');
-      sel.accessories.forEach(inst => {
-        const item = presets.accessories?.find(a => a.id === inst.id);
-        if (!item) return;
-        const attach = inst.attachTo || item.defaultAttachTo || 'torso';
-        const anchor = computeAnchorPosition(attach);
-        const finalX = anchor.x + (inst.offset?.x || item.offset?.x || 0);
-        const finalY = anchor.y + (inst.offset?.y || item.offset?.y || 0);
-        const el = createLayeredElement(item, finalX, finalY, inst);
-        el.addEventListener('click', () => {
-          sel.accessories = sel.accessories.filter(a => a.uid !== inst.uid);
-          renderAccessoryTray(); updateAvatar();
-        });
-        accLayer.appendChild(el);
-      });
-
-      // anchor dots if debug on
-      Array.from(document.querySelectorAll('.anchor-dot')).forEach(n => n.remove());
-      if (anchorsVisible && sel.bodyTypeId) {
-        const zones = ['head','torso','legs','left-leg','right-leg','left-shoulder','right-shoulder'];
-        zones.forEach(z => {
-          const a = computeAnchorPosition(z);
-          const dot = document.createElement('div'); dot.className = 'anchor-dot';
-          dot.style.left = a.x + '%'; dot.style.top = a.y + '%';
-          document.getElementById('avatarStage').appendChild(dot);
-        });
-      }
-    }
 
     function initDrops() {
       const stage = document.getElementById('avatarStage');
