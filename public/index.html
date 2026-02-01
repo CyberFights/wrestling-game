@@ -139,6 +139,7 @@
   </div>
 
   <script>
+  if (typeof eruda !== 'undefined') eruda.init();
     // API helpers
     const api = {
       getPresets: () => fetch('/api/presets').then(r => r.json()),
