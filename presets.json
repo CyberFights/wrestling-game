@@ -79,6 +79,24 @@
       "offset": { "x": 0, "y": 0, "scale": 1.02, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "technique": 2 }
+    },
+    {
+      "id": "tanktop_white",
+      "name": "tanktop white",
+      "description": "tank top gear for speed and flexibility.",
+      "image": "/images/tanktopwhite.png",
+      "offset": { "x": 0, "y": 0, "scale": 1.02, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 1, "technique": 1 }
+    },
+     {
+      "id": "tanktop_black",
+      "name": "tanktop black",
+      "description": "tank top gear for speed and flexibility.",
+      "image": "/images/tanktopblack.png",
+      "offset": { "x": 0, "y": 0, "scale": 1.02, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 1, "technique": 1 }
     }
   ],
   "masks": [
@@ -279,7 +297,7 @@
       "id": "slim_fair",
       "name": "Slim — Fair",
       "description": "Slim / lean build, fair skin (Image 4 - fair)",
-      "image": "/images/body_slim_fair.png",
+      "image": "/images/skinnyasian.png",
       "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": -2 },
@@ -293,7 +311,7 @@
       "id": "slim_tan",
       "name": "Slim — Tan",
       "description": "Slim / lean build, tan skin (Image 4 - tan)",
-      "image": "/images/body_slim_tan.png",
+      "image": "/images/skinnywhite.png",
       "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": -2 },
@@ -307,7 +325,7 @@
       "id": "slim_brown",
       "name": "Slim — Brown",
       "description": "Slim / lean build, brown skin (Image 4 - brown)",
-      "image": "/images/body_slim_brown.png",
+      "image": "/images/skinnytan.png",
       "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": -2 },
@@ -321,7 +339,7 @@
       "id": "slim_dark",
       "name": "Slim — Dark",
       "description": "Slim / lean build, dark skin (Image 4 - dark)",
-      "image": "/images/body_slim_dark.png",
+      "image": "/images/skinnyblck.png",
       "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": -2 },
