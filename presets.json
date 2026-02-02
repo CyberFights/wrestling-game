@@ -76,7 +76,7 @@
       "name": "Leather Vest",
       "description": "Leather vest gear for speed and flexibility.",
       "image": "/images/leathervest.png",
-      "offset": { "x": 0, "y": 0, "scale": 1.02, "rotation": 0, "zIndex": 30 },
+      "offset": { "x": 0, "y": 10, "scale": 1.02, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "technique": 2 }
     },
@@ -339,7 +339,7 @@
       "id": "slim_dark",
       "name": "Slim — Dark",
       "description": "Slim / lean build, dark skin (Image 4 - dark)",
-      "image": "/images/skinnyblck.png",
+      "image": "/images/skinnyblack.png",
       "offset": { "x": 50, "y": 50, "scale": 0.98, "rotation": 0, "zIndex": 5 },
       "anchorOffsets": {
         "head": { "x": 0, "y": -2 },
