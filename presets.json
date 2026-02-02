@@ -76,7 +76,7 @@
       "name": "Leather Vest",
       "description": "Leather vest gear for speed and flexibility.",
       "image": "/images/leathervest.png",
-      "offset": { "x": 0, "y": 10, "scale": 1.02, "rotation": 0, "zIndex": 30 },
+      "offset": { "x": 0, "y": -3, "scale": 1.02, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "technique": 2 }
     },
