@@ -54,11 +54,29 @@
   ],
   "attire": [
     {
-      "id": "classic_trunks",
-      "name": "Classic Trunks",
+      "id": "lightning_trunks",
+      "name": "Lightning Trunks",
       "description": "Traditional ring trunks — lightweight.",
-      "image": "/images/attire_classic_trunks.svg",
-      "offset": { "x": 50, "y": 64, "scale": 1.0, "rotation": 0, "zIndex": 30 },
+      "image": "/images/lightningtrunks.png",
+      "offset": { "x": 0, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 1, "charisma": 1 }
+    },
+     {
+      "id": "pink_thong",
+      "name": "Pink Thong",
+      "description": "Traditional ring thong — lightweight.",
+      "image": "/images/pinkthong.png",
+      "offset": { "x": 0, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 30 },
+      "damage": 2,
+      "statBonuses": { "agility": 1, "charisma": 1 }
+    },
+    {
+      "id": "blue_thong",
+      "name": "Blue Thong",
+      "description": "Traditional ring thong — lightweight.",
+      "image": "/images/bluethong.png",
+      "offset": { "x": 0, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "charisma": 1 }
     },
