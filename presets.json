@@ -57,7 +57,7 @@
       "id": "lightning_trunks",
       "name": "Lightning Trunks",
       "description": "Traditional ring trunks — lightweight.",
-      "image": "/images/lightningtrunks.png",
+      "image": "/images/ligtningtrunks.png",
       "offset": { "x": 0, "y": 0, "scale": 1.0, "rotation": 0, "zIndex": 30 },
       "damage": 2,
       "statBonuses": { "agility": 1, "charisma": 1 }
