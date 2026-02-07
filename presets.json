@@ -144,7 +144,7 @@
       "description": "Long flowing hair for drama and flair.",
       "image": "/images/longblonde.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
      {
@@ -153,7 +153,7 @@
       "description": "Long flowing hair for drama and flair.",
       "image": "/images/longbrown.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
      {
@@ -162,7 +162,7 @@
       "description": "Long flowing hair for drama and flair.",
       "image": "/images/longblack.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
      {
@@ -171,7 +171,7 @@
       "description": "Braided hair for drama and flair.",
       "image": "/images/braidedblonde.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
         {
@@ -180,7 +180,7 @@
       "description": "Braided hair for drama and flair.",
       "image": "/images/braidedblack.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
         {
@@ -189,7 +189,7 @@
       "description": "Braided hair for drama and flair.",
       "image": "/images/braidedbrown.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
         {
@@ -198,7 +198,7 @@
       "description": "Mohawk hair for drama and flair.",
       "image": "/images/mohawkbrown.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
       {
@@ -207,7 +207,7 @@
       "description": "Mohawk hair for drama and flair.",
       "image": "/images/mohawkblack.png",
       "defaultAttachTo": "head",
-      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "offset": { "x": 0, "y": 0, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
     },
     {
