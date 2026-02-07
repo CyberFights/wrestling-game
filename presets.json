@@ -139,10 +139,73 @@
   ],
   "accessories": [
     {
-      "id": "long_hair",
-      "name": "Long Hair",
+      "id": "long_blonde_hair",
+      "name": "Long Blonde Hair",
       "description": "Long flowing hair for drama and flair.",
-      "image": "/images/accessory_long_hair.svg",
+      "image": "/images/longblonde.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+     {
+      "id": "long_brown_hair",
+      "name": "Long Brown Hair",
+      "description": "Long flowing hair for drama and flair.",
+      "image": "/images/longbrown.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+     {
+      "id": "long_black_hair",
+      "name": "Long Black Hair",
+      "description": "Long flowing hair for drama and flair.",
+      "image": "/images/longblack.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+     {
+      "id": "braided_blonde_hair",
+      "name": "Braided Blonde Hair",
+      "description": "Braided hair for drama and flair.",
+      "image": "/images/braidedblonde.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+        {
+      "id": "braided_black_hair",
+      "name": "Braided Black Hair",
+      "description": "Braided hair for drama and flair.",
+      "image": "/images/braidedblack.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+        {
+      "id": "braided_brown_hair",
+      "name": "Braided Brown Hair",
+      "description": "Braided hair for drama and flair.",
+      "image": "/images/braidedbrown.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+        {
+      "id": "mohawk_brown_hair",
+      "name": "Mohawk Brown Hair",
+      "description": "Mohawk hair for drama and flair.",
+      "image": "/images/mohawkbrown.png",
+      "defaultAttachTo": "head",
+      "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
+      "statBonuses": { "charisma": 2 }
+    },
+      {
+      "id": "mohawk_black_hair",
+      "name": "Mohawk Black Hair",
+      "description": "Mohawk hair for drama and flair.",
+      "image": "/images/mohawkblack.png",
       "defaultAttachTo": "head",
       "offset": { "x": 0, "y": -6, "scale": 1.05, "rotation": 0, "zIndex": 45 },
       "statBonuses": { "charisma": 2 }
